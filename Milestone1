@@ -1,0 +1,20 @@
+Data cleaning / preprocessing : none ?
+
+Problematic : 
+- make a tool to choose economic vacations for tourists
+- explore what features make a rent expensive
+- Target audience : airbnb users / also owners to fix their prices ? Socio economics to study desertification?
+- Main objectives : new ludic way to visualize these data, interactive
+
+Basic stats : cf EDA
+- distribution of prices (for a night ?)
+- distribution of type of rooms
+- distance of the good to city center
+- average price per city weekdays vs weekends
+- some stats about features
+
+Already done : 
+- some graphs like distance to center vs distance to metro
+- a peu pres tous les graohes possibles + map --> trouver un angle bien orginal
+https://www.kaggle.com/code/doraoliveira/airbnb-price-cities-map
+- some map of the prices for each city
