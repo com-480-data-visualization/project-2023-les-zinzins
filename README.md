@@ -18,21 +18,16 @@ Please, fill the following sections about your project.
 *(max. 2000 characters per section)*
 
 ### Dataset
-> TODO
 
-https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities/code
+We found the dataset on Kaggle (posted Ferbruary 2023). The data was already pre-processed as it comes from the study "Determinants of Airbnb prices in European cities: A spatial econometrics approach (Supplementary Material)" released in January 13, 2021. So there was no duplicates nor missing values. Only noticable point, a very few number of Airbnb was very expensive, so we considered them as outliers and we removed the 1% more expensive in order not to crush our graphs. 
 
-On a pris le dataset sur kaggle, lui meme tire d’une etude Determinants of Airbnb prices in European cities: A spatial econometrics approach (Supplementary Material) | Zenodo 
-
-pas de duplicate, pas de missing value -> propre donc deja exploitable pour avoir les !ers insights → cf EDA
-
-on a concatener des files
+There was two files by city : one for weekend and the other for weekdays. We created a bigger dataframe by concatenating all files and adding two columns CITY and TIME.
 
 ### Problematic
 
 Airbnb is a service that permits individuals to rent their appartement to others for short duration, usually for vacation.
 
-Our goal is to have a visualization that will help the user and guide him to finding the perfect vacation spot. The visualization will focus on helping the user to get an overview of all the housing options and what they have to offer in terms of price, cleanliness, location and so on. We will also analyse and visualize the hidden correlates that affect the prices and the experiences of previous tenants.
+Our goal is to have a visualization that will help the user and guide him to find the perfect vacation spot. The visualization will focus on getting an overview of all the housing options and what they have to offer in terms of price, cleanliness, location and so on. <!-- We will also analyse and visualize the hidden correlates that affect the prices and the experiences of previous tenants. : selon si kelyan arrive a les normaliser et les rendres plus intiutives/logiques -->
 
 However, Airbnb is not only for people seeking to rent a place for the holidays but also for people wanting to make money by leasing their home while they’re away. With this in mind, our visualization will include a way to get lessors to choose the right price range for their location and get an overview of what other people offer to compare.
 
