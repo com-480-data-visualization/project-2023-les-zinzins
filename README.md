@@ -38,7 +38,7 @@ However, Airbnb is not only for people seeking to rent a place for the holidays 
 
 ### Exploratory Data Analysis
 
-![Alt Text](images/total_prices_distrib.png)
+![Alt Text](images/boxplot_prices_per_city.png)
 
 ### Related work
 
