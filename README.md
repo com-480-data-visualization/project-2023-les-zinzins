@@ -8,7 +8,7 @@
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
-## Milestone 1 (23rd April, 5pm)
+## Milestone 1 (Friday 7th April, 5pm)
 
 **10% of the final grade**
 
@@ -53,12 +53,12 @@ Our original approach is to design a website to visualize these data in a ludic 
 
 We don’t have a lot of sources of inspiration. However we could cite the examples shown during the class, and some of the notebook already released concerning this dataset gave us the first keys to understand which insights in data could be relevant to explore and then to show. 
 
-## Milestone 2 (7th May, 5pm)
+## Milestone 2 (5th May, 5pm)
 
 **10% of the final grade**
 
 
-## Milestone 3 (4th June, 5pm)
+## Milestone 3 (2nd June, 5pm)
 
 **80% of the final grade**
 
