@@ -6,7 +6,7 @@
 | Pierre Hellich | 316491 |
 | Gaston Wolfart | 311916 |
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+[Milestone 1](#milestone-1-friday-7th-april-5pm) • [Milestone 2](#milestone-2-5th-may-5pm) • [Milestone 3](#milestone-3-2nd-june-5pm)
 
 ## Milestone 1 (Friday 7th April, 5pm)
 
@@ -21,7 +21,7 @@ Please, fill the following sections about your project.
 
 We found the dataset on [Kaggle](https://www.kaggle.com/datasets/thedevastator/airbnb-prices-in-european-cities) (posted Ferbruary 2023). The data was already pre-processed as it comes from the study ["Determinants of Airbnb prices in European cities: A spatial econometrics approach (Supplementary Material)"](https://zenodo.org/record/4446043#.ZC7bqnZBzEZ) released in January 13, 2021. So there was no duplicates nor missing values. One noticable point was that a very small fraction of the housings were very expensive, so we considered them as outliers and removed the 1% most costly ones in order not to crush our graphs.
 
-There were two files by city : one for weekend and the other for weekdays. We created a bigger dataframe by concatenating all files and adding two columns CITY and TIME.
+There were two files by city : one for weekend and the other for weekdays. We created a bigger dataframe by concatenating all files and adding two columns *CITY* and *TIME*.
 
 ### Problematic
 
@@ -33,7 +33,22 @@ However, Airbnb is not only for people seeking to rent a place for the holidays 
 
 ### Exploratory Data Analysis
 
-![Alt Text](images/boxplot_prices_per_city.png)
+As you can see in this first graphic, the distribution of total prices in our dataset is heavy-tailed. This indicates that, while the majority of Airbnb listings are priced between 100 and 300 €, there are still a significant number of listings with higher prices. It is important to consider these higher-priced listings when analyzing the data, as they may provide valuable insights into luxury accommodations or unique property types that are available for rent.
+
+![Distribution prices](images/histogram_distribution_prices.png)
+
+The distribution of distances from the city center is also heavy-tailed, with most housings located within 5 km of the city center. This implies that a majority of listings offer convenient access to popular attractions, restaurants, and cultural sites, which is what travelers look for. 
+
+![Distribution distance](images/histogram_distribution_distance.png)
+
+From the box plot, we can observe significant gaps in prices across cities. For instance, the median price of an Airbnb in Amsterdam is around three times higher than in Athens. This shows the price variations between different destinations and can influence the travelers’ choice of city based on their budget. In addition, we can see that most cities have higher prices during weekends. There are however, some notable exceptions to this trend, such as Paris and Athens, where prices remain close regardless of whether it's a weekend or a weekday. Barcelona presents a interesting case, as it has higher prices during weekdays compared to weekends.
+
+![Prices per city](images/boxplot_prices_per_city.png)
+
+From the correlation matrix, it is interesting to observe a strong correlation between guest satisfaction and cleanliness rating. This finding suggests that guests value cleanliness as an essential factor contributing to their overall satisfaction. This is an expected result but the correlation matrix also highlights that the most significant influence on price is the person capacity. Interestingly, the price is negatively correlated with guest satisfaction. This observation indicates that higher-priced accommodations do not necessarily guarantee a better guest experience. 
+
+![Correlation matrix](images/correlation_matrix.png)
+
 
 ### Related work
 
