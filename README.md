@@ -6,9 +6,7 @@
 | Pierre Hellich | 316491 |
 | Gaston Wolfart | 311916 |
 
-## Visualization Website
-
-[Click here to visit Website](https://com-480-data-visualization.github.io/project-2023-les-zinzins/website/)
+## Visualization Website: [Click here to visit the website](https://com-480-data-visualization.github.io/project-2023-les-zinzins/website/)
 
 [Milestone 1](#milestone-1-friday-7th-april-5pm) • [Milestone 2](#milestone-2-5th-may-5pm) • [Milestone 3](#milestone-3-2nd-june-5pm)
 
