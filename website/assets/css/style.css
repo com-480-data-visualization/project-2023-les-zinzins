@@ -10,6 +10,7 @@
     -ms-overflow-style: none;
     /* Firefox */
     scrollbar-width: none;
+    scroll-behavior: smooth;
 }
 
 :root::-webkit-scrollbar {
@@ -17,6 +18,7 @@
     /* Chrome */
     display: none;
 }
+
 
 body {
     margin: 0;
@@ -74,6 +76,8 @@ nav {
 
     transition: .5s;
     transform: translateX(-700px);
+
+    filter: url(#solid_hover);
 }
 
 .room:hover {
@@ -84,4 +88,15 @@ nav {
 .room:hover text {
     fill-opacity: 100%;
     transform: translateZ(0);
+}
+
+.room.active {
+    fill-opacity: 0%;
+}
+
+.room.active text {
+    fill-opacity: 100%;
+    transform: translateZ(0);
+
+    filter: url(#solid_active);
 }

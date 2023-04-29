@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Javascript -->
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" async defer></script>
+
+    <!-- For page behaviors like smooth scrolling -->
+    <script src="assets/js/page_behavior.js" async defer></script>
 </head>
 
 <body>
@@ -20,8 +23,12 @@
             viewBox="0 0 1450 1990">
 
             <defs>
-                <filter x="-0.1" y="-0.05" width="1.2" height="1.1" id="solid">
+                <filter x="-0.1" y="-0.05" width="1.2" height="1.1" id="solid_hover">
                     <feFlood flood-color="#1a2e34" flood-opacity="0.8" />
+                    <feComposite in="SourceGraphic" />
+                </filter>
+                <filter x="-0.1" y="-0.05" width="1.2" height="1.1" id="solid_active">
+                    <feFlood flood-color="#Ff3800" flood-opacity="0.8" />
                     <feComposite in="SourceGraphic" />
                 </filter>
             </defs>
@@ -31,53 +38,40 @@
             </image>
 
             <!-- Attic -->
-            <g class="room">
+            <g class="room active" id="section_1_room">
                 <a href="#section_1">
                     <polygon points="0,421 1048,127 1450,421 1450,582 0,582 0,420" />
-                    <text filter="url(#solid)" x="50" y="550">Attic</text>
+                    <text x="50" y="550">Attic</text>
                 </a>
             </g>
 
 
             <!-- Bedroom -->
-            <g class="room">
+            <g class="room" id="section_2_room">
                 <a href="#section_2">
                     <polygon points="0,582 1450,582 1450,1024 0,1024 0,582" />
-                    <text filter="url(#solid)" x="50" y="990">Bedroom</text>
+                    <text x="50" y="990">Bedroom</text>
                 </a>
             </g>
 
             <!-- Living room -->
-            <g class="room">
+            <g class="room" id="section_3_room">
                 <a href="#section_3">
                     <polygon points="0,1024 1450,1024 1450,1468 0,1468 0,1024" />
-                    <text filter="url(#solid)" x="50" y="1440">Living Room</text>
+                    <text x="50" y="1440">Living Room</text>
                 </a>
             </g>
 
             <!-- Basement -->
-            <g class="room">
+            <g class="room" id="section_4_room">
                 <a href="#section_4">
                     <polygon points="0,1468 1222,1468 1222,1908 0,1908 0,1468" />
-                    <text filter="url(#solid)" x="50" y="1870">Basement</text>
+                    <text x="50" y="1870">Basement</text>
                 </a>
             </g>
 
         </svg>
     </nav>
-
-    <script>
-        // Script to enable smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 
     <!-- Visualization side -->
     <main>
@@ -102,5 +96,4 @@
         </section>
     </main>
 </body>
-
 </html>
