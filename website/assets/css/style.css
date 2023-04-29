@@ -1,0 +1,87 @@
+/* TODO: need to refactor into other files */
+
+/* Main */
+:root {
+    /* TODO: choose font */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    /* Hide scrollbar */
+    /* IE & Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+:root::-webkit-scrollbar {
+    /* Hide scrollbar */
+    /* Chrome */
+    display: none;
+}
+
+body {
+    margin: 0;
+}
+
+main {
+    padding: 0 1em;
+
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+    overflow-y: scroll;
+
+    position: absolute;
+    width: 80%;
+    left: 20%;
+}
+
+section {
+    position: relative;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+
+
+/* Navbar */
+nav {
+    position: fixed;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(135deg, #fcfedc, #a6e2df 41%);
+    display: flex;
+    justify-content: center;
+}
+
+
+#house {
+    width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.room {
+    fill-opacity: 40%;
+    font-size: 100px;
+}
+
+.room text {
+    fill: whitesmoke;
+    fill-opacity: 0%;
+    font-weight: bold;
+
+    transition: .5s;
+    transform: translateX(-700px);
+}
+
+.room:hover {
+    fill-opacity: 0%;
+    cursor: pointer;
+}
+
+.room:hover text {
+    fill-opacity: 100%;
+    transform: translateZ(0);
+}
