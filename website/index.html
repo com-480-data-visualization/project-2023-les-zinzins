@@ -7,6 +7,9 @@
     <title>Les Zinzins</title>
 
     <!-- Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Javascript -->
@@ -38,7 +41,7 @@
             </image>
 
             <!-- Attic -->
-            <g class="room active" id="section_1_room">
+            <g class="room" id="section_1_room">
                 <a href="#section_1">
                     <polygon points="0,421 1048,127 1450,421 1450,582 0,582 0,420" />
                     <text x="50" y="550">Attic</text>
@@ -70,25 +73,49 @@
                 </a>
             </g>
 
+            <!-- rectangle to above on the left to hide the red backgrounds
+            when a room is active -->
+            <rect x="0" y="422" width="22" height="1495" fill="#1a2e34"></rect>
+
         </svg>
     </nav>
 
     <!-- Visualization side -->
     <main>
+        <section id="presentation">
+            <h1>Project description</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit similique laboriosam sit, illum dicta
+                facere quis, et est nisi tempora tenetur dolores omnis modi nesciunt, ullam fugit nihil voluptatem
+                explicabo?
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit similique laboriosam sit, illum dicta
+                facere quis, et est nisi tempora tenetur dolores omnis modi nesciunt, ullam fugit nihil voluptatem
+                explicabo?
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit similique laboriosam sit, illum dicta
+                facere quis, et est nisi tempora tenetur dolores omnis modi nesciunt, ullam fugit nihil voluptatem
+                explicabo?
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit similique laboriosam sit, illum dicta
+                facere quis, et est nisi tempora tenetur dolores omnis modi nesciunt, ullam fugit nihil voluptatem
+                explicabo?</p>
+        </section>
+        <hr>
+
         <section id="section_1">
             <h1>Section 1</h1>
             <p>This is the first section</p>
         </section>
+        <hr>
 
         <section id="section_2">
             <h1>Section 2</h1>
             <p>This is the second section</p>
         </section>
+        <hr>
 
         <section id="section_3">
             <h1>Section 3</h1>
             <p>This is the third section</p>
         </section>
+        <hr>
 
         <section id="section_4">
             <h1>Section 4</h1>
@@ -96,4 +123,5 @@
         </section>
     </main>
 </body>
+
 </html>

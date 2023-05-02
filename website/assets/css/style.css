@@ -4,17 +4,20 @@
 :root {
     /* TODO: choose font */
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 
-    /* Hide scrollbar */
+/* Remove scrollbars */
+* {
     /* IE & Edge */
     -ms-overflow-style: none;
     /* Firefox */
     scrollbar-width: none;
+
+    /* Scrolling behavior */
     scroll-behavior: smooth;
 }
 
-:root::-webkit-scrollbar {
-    /* Hide scrollbar */
+*::-webkit-scrollbar {
     /* Chrome */
     display: none;
 }
@@ -25,14 +28,12 @@ body {
 }
 
 main {
-    padding: 0 1em;
-
     scroll-snap-type: y mandatory;
     height: 100vh;
     overflow-y: scroll;
 
-    position: absolute;
     width: 80%;
+    position: absolute;
     left: 20%;
 }
 
@@ -42,8 +43,19 @@ section {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    padding: 0 2em;
 }
 
+section h1 {
+    font-family: 'Comfortaa';
+    font-size: 3em;
+}
+
+
+header {
+    height: 100vh;
+}
 
 
 
@@ -51,11 +63,12 @@ section {
 nav {
     position: fixed;
     width: 20%;
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(135deg, #fcfedc, #a6e2df 41%);
     display: flex;
     justify-content: center;
 }
+
 
 
 #house {

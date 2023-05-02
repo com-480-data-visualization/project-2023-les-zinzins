@@ -9,9 +9,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// select main for arrow keys
+let x = document.querySelector('main');
+x.setAttribute("tabindex", 1);
+x.focus()
+
 
 // Script to have the navbar follow the active section
-const sections = document.querySelectorAll("section[id]");
+const sections = document.querySelectorAll("section[id^=section]");
 const rooms = document.querySelectorAll(".room");
 
 const mainContainer = document.querySelector('main');
@@ -21,13 +26,11 @@ mainContainer.onscroll = function () { scrollHandler() };
 function scrollHandler() {
     let scrollY = mainContainer.scrollTop;
 
-    // console.log(scrollY);
-
     // Now we loop through sections to get height, top and ID values for each
     sections.forEach(current => {
         const sectionHeight = current.offsetHeight;
         const sectionTop = current.offsetTop - 100;
-        sectionId = current.getAttribute("id");
+        let sectionId = current.getAttribute("id");
 
 
         /*
@@ -38,7 +41,6 @@ function scrollHandler() {
             scrollY > sectionTop &&
             scrollY <= sectionTop + sectionHeight
         ) {
-            console.log(sectionId);
             document.querySelector("#" + sectionId + "_room").classList.add("active");
         } else {
             document.querySelector("#" + sectionId + "_room").classList.remove("active");
