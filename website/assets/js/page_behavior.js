@@ -9,11 +9,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// select main for arrow keys
-let x = document.querySelector('main');
-x.setAttribute("tabindex", 1);
-x.focus()
-
 
 // Script to have the navbar follow the active section
 const sections = document.querySelectorAll("section[id^=section]");
