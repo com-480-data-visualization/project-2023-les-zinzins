@@ -74,7 +74,7 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 
 ## Milestone 2 (5th May, 5pm)
 
-**See pdf called [https://github.com/com-480-data-visualization/project-2023-les-zinzins/blob/master/milestone2.pdf](milestone2.pdf)**
+**See pdf called [milestone2.pdf](https://github.com/com-480-data-visualization/project-2023-les-zinzins/blob/master/milestone2.pdf)**
 
 
 ## Milestone 3 (2nd June, 5pm)
