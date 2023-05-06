@@ -10,6 +10,8 @@
 
 [Milestone 1](#milestone-1-friday-7th-april-5pm) • [Milestone 2](#milestone-2-5th-may-5pm) • [Milestone 3](#milestone-3-2nd-june-5pm)
 
+**For milestone 2, see pdf called "milestone2"**
+
 ## Milestone 1 (Friday 7th April, 5pm)
 
 **10% of the final grade**
