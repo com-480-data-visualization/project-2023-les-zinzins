@@ -72,7 +72,7 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 
 ## Milestone 2 (5th May, 5pm)
 
-**10% of the final grade**
+**See pdf called "milestone2"**
 
 
 ## Milestone 3 (2nd June, 5pm)
