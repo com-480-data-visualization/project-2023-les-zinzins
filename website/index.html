@@ -116,19 +116,73 @@
             <p><em>Data switch: </em>Distance to downtown or distance to metro</p>
         </section>
 
-        <section id="section_3">
+        <!-- <section id="section_3">
             <h1>Capacities of the Airbnb</h1>
             <h2>Tree map</h2>
-            <p>When a user choose a category, the 3 or 4 cities with the most apartments of that capacity are displayed
+            <p>When a user chooses a category, the 3 or 4 cities with the most apartments of that capacity are displayed
                 using a tree map of the Airbnb capacities in that city</p>
             <p><em>Data switch: </em>There will be four options.</p>
             <ul>
-                <li>Alone (1 person)</li>
                 <li>Couple (2 persons)</li>
                 <li>Family (3-5 persons)</li>
-                <li>Group (+5 persons)</li>
+                <li>Group (6 persons)</li>
             </ul>
+        </section> -->
+
+        <!-- Your section -->
+        <section id="section_3">
+            <h1>Capacities of the Airbnb</h1>
+            <h2>Tree map</h2>
+            <p>When a user chooses a category, the 3 or 4 cities with the most apartments of that capacity are displayed
+                using a tree map of the Airbnb capacities in that city</p>
+            <p><em>Data switch: </em>There will be four options.</p>
+            <ul>
+                <li>Couple (2 persons)</li>
+                <li>Family (3-5 persons)</li>
+                <li>Group (6 persons)</li>
+            </ul>
+            <!-- Div where the treemap will be displayed -->
+            <div id="treemap"></div>
         </section>
+
+        <!-- JavaScript to load the CSV data and generate the treemaps -->
+        <script>
+            // Function to load CSV data
+            function loadCSVData(url, callback) {
+                Papa.parse(url, {
+                    download: true,
+                    header: true,
+                    complete: function (results) {
+                        callback(results.data);
+                    }
+                });
+            }
+
+            // Load the CSV data
+            loadCSVData('tree_map.csv', function (data) {
+                // Group data by city
+                var cities = [...new Set(data.map(item => item.city))];
+
+                // Generate a treemap for each city
+                cities.forEach(city => {
+                    // Filter data for the current city
+                    var cityData = data.filter(item => item.city === city);
+
+                    // Prepare data for the treemap
+                    var treemapData = [{
+                        type: 'treemap',
+                        labels: cityData.map(item => item.person_capacity),
+                        parents: cityData.map(() => city),
+                        values: cityData.map(item => item.count),
+                        textinfo: 'label+value+percent root'
+                    }];
+
+                    // Generate the treemap
+                    Plotly.newPlot('treemap', treemapData);
+                });
+            });
+        </script>
+
 
         <section id="section_4">
             <h1>Weather</h1>
