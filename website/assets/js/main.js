@@ -13,31 +13,35 @@ function loadCSVData(url, callback) {
 
 // Load the CSV data
 loadCSVData('data/tree_map.csv', function (data) {
-    // Filter data for the city Athens
-    var cityData = data.filter(item => item.city === 'athens');
+    // Generate a treemap for each city
+    ['athens', 'lisbon'].forEach(city => {
+        // Filter data for the current city
+        var cityData = data.filter(item => item.city === city);
 
-    // Prepare data for the treemap
-    var treemapData = [{
-        type: 'treemap',
-        labels: cityData.map(item => item.person_capacity),
-        parents: cityData.map(() => 'athens'),
-        values: cityData.map(item => parseFloat(item.count)),
-        textinfo: 'label+value+percent root',
-        marker: {
-            colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
-                item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
-        }
-    }];
+        // Prepare data for the treemap
+        var treemapData = [{
+            type: 'treemap',
+            labels: cityData.map(item => item.person_capacity),
+            parents: cityData.map(() => city),
+            values: cityData.map(item => parseFloat(item.count)),
+            textinfo: 'label+value+percent root',
+            marker: {
+                colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
+                    item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+            }
+        }];
 
-    // Layout for the treemap
-    var layout = {
-        autosize: true,
-        title: 'Person Capacity in Athens',
-    };
+        // Layout for the treemap
+        var layout = {
+            autosize: true,
+            title: `Person Capacity in ${city.charAt(0).toUpperCase() + city.slice(1)}`,
+        };
 
-    // Generate the treemap
-    Plotly.newPlot('treemap', treemapData, layout);
+        // Generate the treemap
+        Plotly.newPlot(`treemap-${city}`, treemapData, layout);
+    });
 });
+
 
 
 // geographic map
