@@ -1,6 +1,17 @@
 // Tree map graph
 
 // Function to load CSV data
+function loadCSVData(url, callback) {
+    Papa.parse(url, {
+        download: true,
+        header: true,
+        complete: function (results) {
+            callback(results.data);
+        }
+    });
+}
+
+// Load the CSV data
 // Load the CSV data
 loadCSVData('data/tree_map.csv', function (data) {
     // Generate a treemap for each city
