@@ -200,7 +200,7 @@ section#section_3 li {
 /* Divs where the treemaps will be displayed */
 #treemap-athens,
 #treemap-lisbon {
-    border: 2px solid #212529;
+    border: none;
     margin-bottom: 20px;
     box-sizing: border-box;
     /* To include the border and padding in the element's total width and height */
