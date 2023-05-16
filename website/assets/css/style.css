@@ -167,6 +167,8 @@ nav {
 /* CSS for the third section */
 section#section_3 {
     padding: 20px;
+    overflow: auto;
+    /* Add clearfix to parent element */
 }
 
 section#section_3 h1 {
@@ -202,4 +204,13 @@ section#section_3 li {
     margin-bottom: 20px;
     box-sizing: border-box;
     /* To include the border and padding in the element's total width and height */
+    width: 48%;
+    /* Adjust width to allow for margin */
+    margin-right: 2%;
+    /* Add some margin for spacing */
+}
+
+#treemap-lisbon {
+    margin-right: 0;
+    /* Remove margin-right on the second div */
 }
