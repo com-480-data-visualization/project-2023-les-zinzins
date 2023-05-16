@@ -214,3 +214,8 @@ section#section_3 li {
     margin-right: 0;
     /* Remove margin-right on the second div */
 }
+
+.treemap-container {
+    display: flex;
+    justify-content: space-between;
+}
