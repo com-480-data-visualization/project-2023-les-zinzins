@@ -16,11 +16,15 @@ class ViolinPlot {
 
         // Load the data and create the plot
         d3.csv(csv_file_path).then(data => {
+            console.log(data);
+
             // Filter the data for only weekends
             const weekendData = data.filter(d => d.time === 'weekend');
+            console.log(weekendData);
 
             // Group the data by city
             const groupedData = d3.group(weekendData, d => d.city);
+            console.log(groupedData);
 
             // Calculate the summary statistics for each city (min, max, and quartiles)
             const summaryStatistics = Array.from(groupedData, ([city, values]) => ({
@@ -231,6 +235,6 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
     map_plot_object = new MapPlot('map-plot');
     // plot object is global, you can inspect it in the dev-console
-    violin_plot_object = new ViolinPlot('violin-plot', '../all_data.csv');
+    violin_plot_object = new ViolinPlot('violin-plot', '../all_data.csv'); 
 });
 
