@@ -17,6 +17,9 @@ class ViolinPlot {
         // Load the data and create the plot
         d3.csv(csv_file_path).then(data => {
             console.log(data);
+            console.log('Length:', data.length);
+            console.log('First element:', data[0]);
+            console.log('Last element:', data[data.length - 1]);
 
             // // Filter the data for only weekends
             // const weekendData = data.filter(d => d.time === "weekends");
