@@ -18,9 +18,9 @@ class ViolinPlot {
         d3.csv(csv_file_path).then(data => {
             console.log(data);
 
-            // Filter the data for only weekends
-            const weekendData = data.filter(d => d.time === 'weekends');
-            console.log(weekendData);
+            // // Filter the data for only weekends
+            // const weekendData = data.filter(d => d.time === "weekends");
+            // console.log(weekendData);
 
             // Group the data by city
             const groupedData = d3.group(weekendData, d => d.city);
