@@ -231,6 +231,6 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
     map_plot_object = new MapPlot('map-plot');
     // plot object is global, you can inspect it in the dev-console
-    violin_plot_object = new ViolinPlot('violin-plot', 'all_data.csv');
+    violin_plot_object = new ViolinPlot('violin-plot', '../all_data.csv');
 });
 
