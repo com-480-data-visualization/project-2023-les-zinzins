@@ -200,10 +200,12 @@ section#section_3 li {
 /* Divs where the treemaps will be displayed */
 /* Include this in your style.css file */
 
+/* Divs where the treemaps will be displayed */
 .treemap-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    /* will evenly distribute the space around the items */
 }
 
 #treemap-1,
@@ -212,13 +214,15 @@ section#section_3 li {
 #treemap-4,
 #treemap-5 {
     border: none;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
+    /* adjust as needed */
     box-sizing: border-box;
-    width: 32%;
-    height: 800px;
-    /* increased height */
-    margin-right: 0.1%;
-    /* decreased right margin */
+    width: 30%;
+    /* adjust as needed */
+    height: 500px;
+    /* adjust as needed */
+    margin-right: 10px;
+    /* adjust as needed */
 }
 
 #treemap-3,
