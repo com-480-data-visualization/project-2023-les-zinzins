@@ -1,4 +1,56 @@
-// Tree map graph
+// Violin plot /////////////////////////////////////////////////////////////////////////////////////////
+
+// Load the data
+d3.csv('data.csv').then(data => {
+    // Filter the data for only weekends
+    const weekendData = data.filter(d => d.time === 'weekend');
+
+    // Group the data by city
+    const groupedData = d3.group(weekendData, d => d.city);
+
+    // Calculate the summary statistics for each city (min, max, and quartiles)
+    const summaryStatistics = Array.from(groupedData, ([city, values]) => ({
+        city,
+        min: d3.min(values, d => +d.realSum),
+        q1: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.25),
+        median: d3.median(values, d => +d.realSum),
+        q3: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.75),
+        max: d3.max(values, d => +d.realSum),
+    }));
+
+    // Create the SVG for the violin plot
+    const svg = d3.select('#violin-plot')
+        .append('svg')
+        .attr('width', 500) // set to desired width
+        .attr('height', 500); // set to desired height
+
+    // Set the scales
+    const xScale = d3.scaleBand()
+        .range([0, 500]) // set to desired range
+        .domain(summaryStatistics.map(d => d.city))
+        .padding(0.05);
+    const yScale = d3.scaleLinear()
+        .range([500, 0]) // set to desired range
+        .domain([0, d3.max(summaryStatistics, d => d.max)]);
+
+    // Create the area generator for the violins
+    const areaGenerator = d3.area()
+        .x0(d => xScale(d.city) - d.q3)
+        .x1(d => xScale(d.city) + d.q3)
+        .y(d => yScale(d.median))
+        .curve(d3.curveCatmullRom);
+
+    // Draw the violins
+    svg.selectAll('.violin')
+        .data(summaryStatistics)
+        .enter()
+        .append('path')
+        .attr('class', 'violin')
+        .attr('d', areaGenerator)
+        .attr('fill', '#69b3a2'); // change to desired color
+});
+
+// Tree map graph /////////////////////////////////////////////////////////////////////////////////////////
 
 // Function to load CSV data
 function loadCSVData(url, callback) {
@@ -66,7 +118,7 @@ loadCSVData('data/tree_map.csv', function (data) {
 
 
 
-// geographic map
+// geographic map /////////////////////////////////////////////////////////////////////////////////////////
 
 // position: longitude, latitude
 const city_coords = [
