@@ -206,7 +206,7 @@ function generateTreemaps(cities) {
 
 // Function to clear treemaps
 function clearTreemaps() {
-    ['treemap-1', 'treemap-2', 'treemap-3'].forEach(function (id) {
+    ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
         Plotly.purge(id);
     });
 }
@@ -220,13 +220,14 @@ document.getElementsByName('category').forEach(function (radio) {
             generateTreemaps(['Athens', 'Lisbon']);
         } else if (this.value === 'Family') {
             generateTreemaps(['Vienna', 'Rome', 'Budapest']);
+        } else if (this.value === 'Couple') {
+            generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
         }
     });
 });
 
 // Generate initial treemaps for Group
-generateTreemaps(['Athens', 'Lisbon']);
-
+generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
