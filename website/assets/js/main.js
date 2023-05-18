@@ -21,9 +21,9 @@ class ViolinPlot {
             console.log('First element:', data[0]);
             console.log('Last element:', data[data.length - 1]);
 
-            // // Filter the data for only weekends
-            // const weekendData = data.filter(d => d.time === "weekends");
-            // console.log(weekendData);
+            // Filter the data for only weekends
+            const weekendData = data.filter(d => d); // .time === "weekends"
+            console.log(weekendData);
 
             // Group the data by city
             const groupedData = d3.group(weekendData, d => d.city);
