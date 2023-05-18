@@ -21,7 +21,7 @@ class ViolinPlot {
             console.log('Last element:', data[data.length - 1]);
 
             // Filter the data for only weekends
-            const weekendData = data.filter(d => d.time === 'weekend');
+            const weekendData = data.filter(d => d.time === 'weekends');
             console.log(weekendData);
 
             // Group the data by city
@@ -37,6 +37,7 @@ class ViolinPlot {
                 q3: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.75),
                 max: d3.max(values, d => +d.realSum),
             }));
+            console.log(summaryStatistics);
 
             // Set the scales
             const xScale = d3.scaleBand()
