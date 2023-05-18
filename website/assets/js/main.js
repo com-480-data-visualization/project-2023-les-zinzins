@@ -22,7 +22,7 @@ class ViolinPlot {
             console.log('Last element:', data[data.length - 1]);
 
             // Filter the data for only weekends
-            const weekendData = data.filter(d => d); // .time === "weekends"
+            const weekendData = data.filter(d => True); // .time === "weekends"
             console.log(weekendData);
 
             // Group the data by city
