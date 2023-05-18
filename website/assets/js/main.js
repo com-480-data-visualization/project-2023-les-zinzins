@@ -163,14 +163,40 @@ class MapPlot {
 
 
         const map_promise = d3.json("data/europe_topo.json").then((topojson_raw) => {
-            console.log(topojson_raw);
             return topojson.feature(topojson_raw, topojson_raw.objects.continent_Europe_subunits);
         });
 
+        const cities_rain_promise = d3.csv("data/cities_rain_data_2022.csv").then((rain_data) => {
+            // preprocess rain data here
 
-        Promise.all([map_promise]).then((results) => {
-            let topology = results[0]
+            // type conversion and parsing
+            rain_data = rain_data.map(function (line) {
+
+                return {
+                    city: line.city,
+                    rain_hours: JSON.parse(line.rain_hours)
+                }
+            });
+
+            return rain_data;
+        });
+
+
+        Promise.all([map_promise, cities_rain_promise]).then((results) => {
+            let topology = results[0];
             let map_data = topology.features;
+
+            let cities_rain_data = results[1];
+
+            const get_sunny_days = function (d) {
+                // radius proportional to the number of sunny days
+                // where the rain hours = 0
+                return cities_rain_data
+                    .find(item => item.city === d.name)
+                    .rain_hours
+                    .filter(d => d <= 1.0)
+                    .length;
+            }
 
             console.log('Data loaded');
 
@@ -181,12 +207,13 @@ class MapPlot {
                 .translate([this.svg_width * 0.7, this.svg_height * 0.2])
                 .scale(800);
 
-            // const color_scale = d3.scaleLog()
-            //     .domain(d3.extent(cantonId_to_population.map(x => parseInt(x.density))))
-            //     .range(["white", "lime"])
-            //     .interpolate(d3.interpolateHcl);
+            const radius_scale = d3.scaleSqrt()
+                .domain(d3.extent(city_coords.map(d => get_sunny_days(d)))) // get min and max of sunny days
+                .range([10, 20]);
 
+            // to draw the countries
             const path_generator = d3.geoPath(projection);
+
 
             // Draw the lands
             this.svg.selectAll("path")
@@ -194,17 +221,30 @@ class MapPlot {
                 .enter()
                 .append("path")
                 .attr("class", "country-path")
-                .attr("d", path_generator)
-                .attr("fill", "#a6e2df");
+                .attr("d", path_generator);
 
             // Draw the city labels
-            this.svg.selectAll("text")
+            this.svg.selectAll("text.country-label")
                 .data(city_coords)
                 .enter()
                 .append("text")
                 .attr("class", "country-label")
                 .text(d => capitalize(d.name))
-                .attr("transform", d => `translate(${projection(d.position)[0]}, ${projection(d.position)[1] - 20})`);
+                .attr("transform", d => `translate(
+                    ${projection(d.position)[0]},
+                    ${projection(d.position)[1] - radius_scale(get_sunny_days(d)) - 3}  
+                )`);  // Translate the label of the city above the circle
+
+            // Create tooltip group
+            let tooltip = d3.select("body")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .style("background", "#fff")
+                .style("padding", "5px")
+                .text("a simple tooltip");
+
 
             // Draw the city points
             this.svg.selectAll("circle")
@@ -214,12 +254,28 @@ class MapPlot {
                 .attr("class", "city")
                 .attr("cx", d => projection(d.position)[0])
                 .attr("cy", d => projection(d.position)[1])
-                .attr("r", d => d.name.length * 2);
+                .attr("r", d => radius_scale(get_sunny_days(d)))
+                .on("mouseover", function (event, d) {
+                    tooltip.style("visibility", "visible").text(d.name);
 
+                    d3.select(this)
+                        .style("stroke", "black")
+                        .style("opacity", 1);
+                })
+                .on("mousemove", function (event, d) {
+                    tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
+                })
+                .on("mouseleave", function () {
+                    tooltip.style("visibility", "hidden");
+                    d3.select(this)
+                        .style("stroke", "none")
+                        .style("opacity", 0.8);
+                });
         });
     }
 }
 
+// Function to capitalize the first letter of a word
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
