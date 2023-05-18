@@ -212,12 +212,12 @@ section#section_3 li {
 #treemap-4,
 #treemap-5 {
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     box-sizing: border-box;
     width: 32%;
-    height: 500px;
+    height: 800px;
     /* increased height */
-    margin-right: 1%;
+    margin-right: 0.1%;
     /* decreased right margin */
 }
 
