@@ -135,6 +135,8 @@ class ViolinPlot {
 //     Plotly.newPlot('treemap-lisbon', treemapDataLisbon, layoutLisbon);
 // });
 
+// Include this in your main.js file
+
 // Function to load CSV data
 function loadCSVData(url, callback) {
     Papa.parse(url, {
@@ -152,7 +154,6 @@ function generateTreemaps(cities) {
         cities.forEach(function (city, index) {
             var cityData = data.filter(item => item.city === city.toLowerCase());
 
-            // Prepare data for the treemap
             var treemapData = [{
                 type: 'treemap',
                 labels: cityData.map(item => item.person_capacity),
@@ -165,26 +166,22 @@ function generateTreemaps(cities) {
                 }
             }];
 
-            // Layout for the treemap
             var layout = {
-                autosize: true,
-                title: `Person Capacity in ${city.charAt(0).toUpperCase() + city.slice(1)}`,
+                autosize: true
+                // Removed title
             };
 
-            // Generate the treemap
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
         });
     });
 }
 
-// Function to clear treemaps
 function clearTreemaps() {
     ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
         Plotly.purge(id);
     });
 }
 
-// Add event listeners to the radio buttons
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
         clearTreemaps();
@@ -199,8 +196,8 @@ document.getElementsByName('category').forEach(function (radio) {
     });
 });
 
-// Generate initial treemaps for Group
 generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
+
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
