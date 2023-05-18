@@ -50,7 +50,7 @@ class ViolinPlot {
             console.log(xScale);
             console.log(yScale);
                 
-            const kde = kernelDensityEstimator(kernelEpanechnikov(7), y.ticks(40)); // adjust bandwidth and number of ticks as needed
+            const kde = kernelDensityEstimator(kernelEpanechnikov(7), yScale.ticks(40)); // adjust bandwidth and number of ticks as needed
             const densityData = Array.from(groupedData, ([city, values]) => ({
                 city,
                 density: kde(values.map(d => +d.realSum)),
