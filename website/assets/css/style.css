@@ -217,7 +217,7 @@ section#section_3 li {
     margin-bottom: -200px;
     /* adjust as needed */
     box-sizing: border-box;
-    width: 33%;
+    width: 30%;
     /* adjust as needed */
     height: 500px;
     /* adjust as needed */
@@ -227,5 +227,5 @@ section#section_3 li {
 
 #treemap-3,
 #treemap-5 {
-    margin-right: 0;
+    margin-right: -200px;
 }
