@@ -47,8 +47,8 @@ class ViolinPlot {
             const yScale = d3.scaleLinear()
                 .range([height, 0])  // adjust range to match height of SVG
                 .domain([0, d3.max(summaryStatistics, d => d.max)]);
-            console.log(xScale)
-            console.log(yScale)
+            console.log(xScale);
+            console.log(yScale);
                 
             const kde = kernelDensityEstimator(kernelEpanechnikov(7), y.ticks(40)); // adjust bandwidth and number of ticks as needed
             const densityData = Array.from(groupedData, ([city, values]) => ({
