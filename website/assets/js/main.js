@@ -37,6 +37,7 @@ class ViolinPlot {
                 q3: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.75),
                 max: d3.max(values, d => +d.realSum),
             }));
+            console.log(summaryStatistics);
 
             // Set the scales
             const xScale = d3.scaleBand()
