@@ -39,7 +39,7 @@ class ViolinPlot {
             }));
             console.log(summaryStatistics);
 
-            // Set the scales : is that utile ? 
+            // Set the scales 
             const xScale = d3.scaleBand()
                 .range([0, width])  // adjust range to match width of SVG
                 .domain(summaryStatistics.map(d => d.city))
@@ -47,49 +47,51 @@ class ViolinPlot {
             const yScale = d3.scaleLinear()
                 .range([height, 0])  // adjust range to match height of SVG
                 .domain([0, d3.max(summaryStatistics, d => d.max)]);
+            console.log(xScale);
+            console.log(yScale);
                 
-                const kde = kernelDensityEstimator(kernelEpanechnikov(7), y.ticks(40)); // adjust bandwidth and number of ticks as needed
-                const densityData = Array.from(groupedData, ([city, values]) => ({
-                    city,
-                    density: kde(values.map(d => +d.realSum)),
-                }));
+            const kde = kernelDensityEstimator(kernelEpanechnikov(7), y.ticks(40)); // adjust bandwidth and number of ticks as needed
+            const densityData = Array.from(groupedData, ([city, values]) => ({
+                city,
+                density: kde(values.map(d => +d.realSum)),
+            }));
                 
-                // Now, create the area generator for the violins
-                const areaGenerator = d3.area()
-                    .x0(d => xScale(d.city) - yScale(d[1]))
-                    .x1(d => xScale(d.city) + yScale(d[1]))
-                    .y(d => yScale(d[0]))
-                    .curve(d3.curveCatmullRom);
+            // Now, create the area generator for the violins
+            const areaGenerator = d3.area()
+                .x0(d => xScale(d.city) - yScale(d[1]))
+                .x1(d => xScale(d.city) + yScale(d[1]))
+                .y(d => yScale(d[0]))
+                .curve(d3.curveCatmullRom);
+            console.log(areaGenerator);
                 
-                // const areaGenerator = d3.area()
-                //     .x0(d => xScale(d.city) - d.q3)
-                //     .x1(d => xScale(d.city) + d.q3)
-                //     .y(d => yScale(d.median))
-                //     .curve(d3.curveCatmullRom);
+            // const areaGenerator = d3.area()
+            //     .x0(d => xScale(d.city) - d.q3)
+            //     .x1(d => xScale(d.city) + d.q3)
+            //     .y(d => yScale(d.median))
+            //     .curve(d3.curveCatmullRom);
                 
-                // Draw the violins
-                this.svg.selectAll('.violin')
-                    .data(densityData) // summaryStatistics
-                    .enter()
-                    .append('path')
-                    .attr('class', 'violin')
-                    .attr('d', areaGenerator)
-                    .attr('fill', '#69b3a2'); // change to desired color
+            // Draw the violins
+            this.svg.selectAll('.violin')
+                .data(densityData) // summaryStatistics
+                .enter()
+                .append('path')
+                .attr('class', 'violin')
+                .attr('d', areaGenerator)
+                .attr('fill', '#69b3a2'); // change to desired color
                 
-                function kernelDensityEstimator(kernel, X) {
-                    return function(V) {
-                        return X.map(function(x) {
-                            return [x, d3.mean(V, function(v) { return kernel(x - v); })];
-                        });
-                    };
-                }
+            function kernelDensityEstimator(kernel, X) { // general function for estimating the kernel density
+                return function(V) {
+                    return X.map(function(x) {
+                        return [x, d3.mean(V, function(v) { return kernel(x - v); })];
+                    });
+                };
+            }
                 
-                function kernelEpanechnikov(k) {
-                    return function(v) {
-                        return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
-                    };
-                }
-                                
+            function kernelEpanechnikov(k) { // adjust the bandwidth of the kernel to change how smooth or rough the violin shape is.
+                return function(v) {
+                    return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
+                };
+            }              
         });
     }
 }
