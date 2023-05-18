@@ -1,7 +1,7 @@
 // Violin plot /////////////////////////////////////////////////////////////////////////////////////////
 
 // Load the data
-d3.csv('data.csv').then(data => {
+d3.csv('all_data.csv').then(data => {
     // Filter the data for only weekends
     const weekendData = data.filter(d => d.time === 'weekend');
 
