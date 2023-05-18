@@ -62,7 +62,7 @@ class ViolinPlot {
                 .x1(d => xScale(d.city) + yScale(d[1]))
                 .y(d => yScale(d[0]))
                 .curve(d3.curveCatmullRom);
-            console.log(areaGenerator)
+            console.log(areaGenerator);
                 
             // const areaGenerator = d3.area()
             //     .x0(d => xScale(d.city) - d.q3)
