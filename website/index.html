@@ -136,32 +136,29 @@
         </section>
 
 
+        <!-- Include this in your index.html file -->
+
         <section id="section_3">
             <h1>Capacities of the Airbnb</h1>
             <h2>Tree map</h2>
-            <p>When a user chooses category, the 3 or 4 cities with the most apartments of that capacity are displayed
+            <p>When a user chooses category, the cities with the most apartments of that capacity are displayed
                 using a tree map of the Airbnb capacities in that city</p>
-            <p><em>Data switch: </em>There will be four options.</p>
+            <p><em>Data switch: </em>There will be three options.</p>
             <ul>
-                <li>Couple (2 persons)</li>
-                <li>Family (3-5 persons)</li>
-                <li>Group (6 persons)</li>
+                <li><input type="radio" name="category" value="Couple" checked>Couple (2 persons)</li>
+                <li><input type="radio" name="category" value="Family">Family (3-5 persons)</li>
+                <li><input type="radio" name="category" value="Group">Group (6 persons)</li>
             </ul>
-            <!-- Add radio buttons for Group and Family options -->
-            <p><em>Choose a category: </em></p>
-            <input type="radio" id="group" name="category" value="Group" checked>
-            <label for="group">Group</label><br>
-            <input type="radio" id="family" name="category" value="Family">
-            <label for="family">Family</label><br>
-
             <!-- Divs where the treemaps will be displayed -->
             <div class="treemap-container">
-                <div id="treemap-1" style="width: 45%; height: 600px;"></div>
-                <div id="treemap-2" style="width: 45%; height: 600px;"></div>
-                <div id="treemap-3" style="width: 45%; height: 600px;"></div>
+                <div id="treemap-1" style="width: 30%; height: 400px;"></div>
+                <div id="treemap-2" style="width: 30%; height: 400px;"></div>
+                <div id="treemap-3" style="width: 30%; height: 400px;"></div>
+                <div id="treemap-4" style="width: 30%; height: 400px;"></div>
+                <div id="treemap-5" style="width: 30%; height: 400px;"></div>
             </div>
-
         </section>
+
 
         <section id="section_4">
             <h1>Weather</h1>

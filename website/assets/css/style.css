@@ -200,7 +200,9 @@ section#section_3 li {
 /* Divs where the treemaps will be displayed */
 #treemap-1,
 #treemap-2,
-#treemap-3 {
+#treemap-3,
+#treemap-4,
+#treemap-5 {
     border: none;
     margin-bottom: 20px;
     box-sizing: border-box;
@@ -209,7 +211,9 @@ section#section_3 li {
 }
 
 #treemap-2,
-#treemap-3 {
+#treemap-3,
+#treemap-4,
+#treemap-5 {
     margin-right: 0;
 }
 
