@@ -70,6 +70,70 @@ class ViolinPlot {
 
 // Tree map graph /////////////////////////////////////////////////////////////////////////////////////////
 
+// // Function to load CSV data
+// function loadCSVData(url, callback) {
+//     Papa.parse(url, {
+//         download: true,
+//         header: true,
+//         complete: function (results) {
+//             callback(results.data);
+//         }
+//     });
+// }
+
+// /// Load the CSV data
+// loadCSVData('data/tree_map.csv', function (data) {
+//     // Filter data for the city Athens
+//     var cityDataAthens = data.filter(item => item.city === 'athens');
+
+//     // Prepare data for the Athens treemap
+//     var treemapDataAthens = [{
+//         type: 'treemap',
+//         labels: cityDataAthens.map(item => item.person_capacity),
+//         parents: cityDataAthens.map(() => 'athens'),
+//         values: cityDataAthens.map(item => parseFloat(item.count)),
+//         textinfo: 'label+value+percent root',
+//         marker: {
+//             colors: cityDataAthens.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
+//                 item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+//         }
+//     }];
+
+//     // Layout for the Athens treemap
+//     var layoutAthens = {
+//         autosize: true,
+//         title: 'Person Capacity in Athens',
+//     };
+
+//     // Generate the Athens treemap
+//     Plotly.newPlot('treemap-athens', treemapDataAthens, layoutAthens);
+
+//     // Filter data for the city Lisbon
+//     var cityDataLisbon = data.filter(item => item.city === 'lisbon');
+
+//     // Prepare data for the Lisbon treemap
+//     var treemapDataLisbon = [{
+//         type: 'treemap',
+//         labels: cityDataLisbon.map(item => item.person_capacity),
+//         parents: cityDataLisbon.map(() => 'lisbon'),
+//         values: cityDataLisbon.map(item => parseFloat(item.count)),
+//         textinfo: 'label+value+percent root',
+//         marker: {
+//             colors: cityDataLisbon.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
+//                 item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+//         }
+//     }];
+
+//     // Layout for the Lisbon treemap
+//     var layoutLisbon = {
+//         autosize: true,
+//         title: 'Person Capacity in Lisbon',
+//     };
+
+//     // Generate the Lisbon treemap
+//     Plotly.newPlot('treemap-lisbon', treemapDataLisbon, layoutLisbon);
+// });
+
 // Function to load CSV data
 function loadCSVData(url, callback) {
     Papa.parse(url, {
@@ -81,58 +145,59 @@ function loadCSVData(url, callback) {
     });
 }
 
-/// Load the CSV data
-loadCSVData('data/tree_map.csv', function (data) {
-    // Filter data for the city Athens
-    var cityDataAthens = data.filter(item => item.city === 'athens');
+// Function to generate treemaps for provided cities
+function generateTreemaps(cities) {
+    loadCSVData('data/tree_map.csv', function (data) {
+        cities.forEach(function (city, index) {
+            var cityData = data.filter(item => item.city === city.toLowerCase());
 
-    // Prepare data for the Athens treemap
-    var treemapDataAthens = [{
-        type: 'treemap',
-        labels: cityDataAthens.map(item => item.person_capacity),
-        parents: cityDataAthens.map(() => 'athens'),
-        values: cityDataAthens.map(item => parseFloat(item.count)),
-        textinfo: 'label+value+percent root',
-        marker: {
-            colors: cityDataAthens.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
-                item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+            // Prepare data for the treemap
+            var treemapData = [{
+                type: 'treemap',
+                labels: cityData.map(item => item.person_capacity),
+                parents: cityData.map(() => city),
+                values: cityData.map(item => parseFloat(item.count)),
+                textinfo: 'label+value+percent root',
+                marker: {
+                    colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
+                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+                }
+            }];
+
+            // Layout for the treemap
+            var layout = {
+                autosize: true,
+                title: `Person Capacity in ${city.charAt(0).toUpperCase() + city.slice(1)}`,
+            };
+
+            // Generate the treemap
+            Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
+        });
+    });
+}
+
+// Function to clear treemaps
+function clearTreemaps() {
+    ['treemap-1', 'treemap-2', 'treemap-3'].forEach(function (id) {
+        Plotly.purge(id);
+    });
+}
+
+// Add event listeners to the radio buttons
+document.getElementsByName('category').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+        clearTreemaps();
+
+        if (this.value === 'Group') {
+            generateTreemaps(['Athens', 'Lisbon']);
+        } else if (this.value === 'Family') {
+            generateTreemaps(['Vienna', 'Rome', 'Budapest']);
         }
-    }];
-
-    // Layout for the Athens treemap
-    var layoutAthens = {
-        autosize: true,
-        title: 'Person Capacity in Athens',
-    };
-
-    // Generate the Athens treemap
-    Plotly.newPlot('treemap-athens', treemapDataAthens, layoutAthens);
-
-    // Filter data for the city Lisbon
-    var cityDataLisbon = data.filter(item => item.city === 'lisbon');
-
-    // Prepare data for the Lisbon treemap
-    var treemapDataLisbon = [{
-        type: 'treemap',
-        labels: cityDataLisbon.map(item => item.person_capacity),
-        parents: cityDataLisbon.map(() => 'lisbon'),
-        values: cityDataLisbon.map(item => parseFloat(item.count)),
-        textinfo: 'label+value+percent root',
-        marker: {
-            colors: cityDataLisbon.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
-                item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
-        }
-    }];
-
-    // Layout for the Lisbon treemap
-    var layoutLisbon = {
-        autosize: true,
-        title: 'Person Capacity in Lisbon',
-    };
-
-    // Generate the Lisbon treemap
-    Plotly.newPlot('treemap-lisbon', treemapDataLisbon, layoutLisbon);
+    });
 });
+
+// Generate initial treemaps for Group
+generateTreemaps(['Athens', 'Lisbon']);
 
 
 
@@ -294,6 +359,6 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
     map_plot_object = new MapPlot('map-plot');
     // plot object is global, you can inspect it in the dev-console
-    violin_plot_object = new ViolinPlot('violin-plot', '../all_data.csv'); 
+    violin_plot_object = new ViolinPlot('violin-plot', '../all_data.csv');
 });
 
