@@ -214,18 +214,18 @@ section#section_3 li {
 #treemap-4,
 #treemap-5 {
     border: none;
-    margin-bottom: -200px;
+    margin-bottom: 0px;
     /* adjust as needed */
     box-sizing: border-box;
     width: 30%;
     /* adjust as needed */
     height: 500px;
     /* adjust as needed */
-    margin-right: -200px;
+    margin-right: 0px;
     /* adjust as needed */
 }
 
 #treemap-3,
 #treemap-5 {
-    margin-right: -200px;
+    margin-right: 0px;
 }
