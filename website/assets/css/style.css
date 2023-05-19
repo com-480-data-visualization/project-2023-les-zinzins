@@ -199,6 +199,39 @@ section#section_3 li {
 
 /* Treemap CSS */
 
+.selection {
+    display: flex;
+    align-items: center;
+}
+
+.selection p {
+    margin-right: 20px;
+    /* Adds some space between the text and the radio buttons */
+}
+
+.radio-options {
+    display: inline-block;
+}
+
+.radio-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    /* Change this value to change the text size */
+}
+
+.radio-list li {
+    display: inline-block;
+    margin-right: 10px;
+    /* Adds some space between the radio buttons */
+}
+
+
+.radio-list {
+    list-style: none !important;
+}
+
 .width-33 {
     width: 33.33%;
 }
@@ -235,7 +268,7 @@ html {
     box-sizing: border-box;
     /* width: 33.33%; */
     /* to have 3 treemaps per row */
-    height: 350px;
+    height: 450px;
     margin-right: 0px;
 }
 
@@ -246,6 +279,6 @@ html {
     box-sizing: border-box;
     /* width: 50%; */
     /* to have 3 treemaps per row */
-    height: 350px;
+    height: 450px;
     margin-right: 0px;
 }
