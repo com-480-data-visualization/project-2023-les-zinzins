@@ -204,21 +204,29 @@ section#section_3 li {
     align-items: center;
 }
 
-.selection p {
-    margin-right: 20px;
-    /* Adds some space between the text and the radio buttons */
+.selection p em {
+    line-height: 1;
+    /* Adjust this value if needed */
+}
+
+.selection p,
+.selection .radio-options {
+    margin: 0;
 }
 
 .radio-options {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
 }
 
 .radio-list {
     list-style: none;
     padding: 0;
-    margin: 0;
     font-size: 14px;
     /* Change this value to change the text size */
+    display: flex;
+    align-items: center;
 }
 
 .radio-list li {

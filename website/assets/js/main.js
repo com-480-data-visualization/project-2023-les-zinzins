@@ -50,7 +50,7 @@ class ViolinPlot {
 
             // Group the data by city
             const groupedData = d3.group(weekendData, d => d.city);
-            console.log('groupedData',groupedData);
+            console.log('groupedData', groupedData);
 
             // Calculate the summary statistics for each city (min, max, and quartiles)
             const summaryStatistics = Array.from(groupedData, ([city, values]) => ({
@@ -61,7 +61,7 @@ class ViolinPlot {
                 q3: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.75),
                 max: d3.max(values, d => +d.realSum),
             }));
-            console.log('summaryStatistics',summaryStatistics);
+            console.log('summaryStatistics', summaryStatistics);
 
             // Set the scales 
             const xScale = d3.scaleBand()
@@ -83,7 +83,7 @@ class ViolinPlot {
                 city,
                 density: kde(values.map(d => +d.realSum)),
             }));
-            
+
             // // Adjust density data calculation
             // const densityData = summaryStatistics.map(stat => ({
             //     city: stat.city,
@@ -152,15 +152,26 @@ function generateTreemaps(cities) {
 
             var treemapData = [{
                 type: 'treemap',
-                labels: cityData.map(item => item.person_capacity),
-                parents: cityData.map(() => city),
+                labels: cityData.map(item => `${item.person_capacity} Airbnbs`),
+                parents: cityData.map(() => `${city} Airbnbs`),
                 values: cityData.map(item => parseFloat(item.count)),
                 textinfo: 'label+value+percent root',
+                hovertemplate: '%{label}<br>%{value} Airbnbs<br>%{percentRoot:.2%} of the Airbnbs<extra></extra>',
                 marker: {
                     colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
                         item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+                },
+                marker: {
+                    colors: cityData.map(item => item.person_capacity === 'Family' ? '#1f77b4' :
+                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+                },
+                marker: {
+                    colors: cityData.map(item => item.person_capacity === 'Group' ? '#1f77b4' :
+                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
                 }
+
             }];
+
 
             var layout = {
                 autosize: true
