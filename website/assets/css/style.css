@@ -227,7 +227,7 @@ html {
     box-sizing: border-box;
     width: 33.33%;
     /* to have 3 treemaps per row */
-    height: 400px;
+    height: 500px;
     margin-right: 0px;
 }
 
@@ -238,6 +238,6 @@ html {
     box-sizing: border-box;
     width: 50%;
     /* to have 3 treemaps per row */
-    height: 400px;
+    height: 500px;
     margin-right: 0px;
 }
