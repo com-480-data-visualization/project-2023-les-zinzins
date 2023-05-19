@@ -200,9 +200,22 @@ section#section_3 li {
 /* Divs where the treemaps will be displayed */
 /* Include this in your style.css file */
 
+body,
+html {
+    margin: 0;
+    padding: 0;
+    /* This removes the default margin and padding that some browsers apply */
+}
+
 .treemap-container {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    /* ensures that the container takes up the full width */
+    padding: 0;
+    /* ensures that there's no padding on the container */
+    box-sizing: border-box;
+    /* includes padding and border in the element's total width and height */
 }
 
 #treemap-1,
