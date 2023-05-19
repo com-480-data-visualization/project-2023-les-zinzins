@@ -134,7 +134,6 @@ function loadCSVData(url, callback) {
     });
 }
 
-// Function to generate treemaps for provided cities
 function generateTreemaps(cities) {
     loadCSVData('data/tree_map.csv', function (data) {
         cities.forEach(function (city, index) {
@@ -154,19 +153,35 @@ function generateTreemaps(cities) {
 
             var layout = {
                 autosize: true
-                // Removed title
             };
+
+            // Get the element
+            let element = document.getElementById(`treemap-${index + 1}`);
+
+            // Add the height class
+            element.classList.add('height-350');
+
+            // Check the city name and add the corresponding width class
+            if (city === 'Athens' || city === 'Lisbon' || city === 'Barcelona' || city === 'Amsterdam') {
+                element.classList.add('width-50');
+            } else {
+                element.classList.add('width-33');
+            }
 
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
         });
     });
 }
 
+
 function clearTreemaps() {
     ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
+        let element = document.getElementById(id);
+        element.classList.remove('height-350', 'width-33', 'width-50');
         Plotly.purge(id);
     });
 }
+
 
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
@@ -182,8 +197,7 @@ document.getElementsByName('category').forEach(function (radio) {
     });
 });
 
-generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
-
+generateTreemaps(['Vienna', 'Rome', 'Budapest']);
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
