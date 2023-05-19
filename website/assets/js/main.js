@@ -14,7 +14,7 @@ class ViolinPlot {
             .append('svg')
             .attr("width", width + "px")
             .attr("height", height + "px");
-         
+
         console.log("SVG created...");
 
         // test if ll the rest is working
@@ -133,6 +133,7 @@ class ViolinPlot {
 
 // Tree map graph /////////////////////////////////////////////////////////////////////////////////////////
 
+
 // Function to load CSV data
 function loadCSVData(url, callback) {
     Papa.parse(url, {
@@ -145,7 +146,7 @@ function loadCSVData(url, callback) {
 }
 
 // Function to generate treemaps for provided cities
-function generateTreemaps(cities, heightClass) {
+function generateTreemaps(cities) {
     loadCSVData('data/tree_map.csv', function (data) {
         cities.forEach(function (city, index) {
             var cityData = data.filter(item => item.city === city.toLowerCase());
@@ -168,39 +169,31 @@ function generateTreemaps(cities, heightClass) {
             };
 
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
-
-            // Applying the height class to treemap divs
-            var treemapDiv = document.getElementById(`treemap-${index + 1}`);
-            treemapDiv.className = ''; // reset the class
-            treemapDiv.classList.add(heightClass); // add the new class
         });
     });
 }
 
-
 function clearTreemaps() {
     ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
         Plotly.purge(id);
-        document.getElementById(id).className = '';
     });
 }
-
 
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
         clearTreemaps();
 
         if (this.value === 'Group') {
-            generateTreemaps(['Athens', 'Lisbon'], 'height-500');
+            generateTreemaps(['Athens', 'Lisbon']);
         } else if (this.value === 'Family') {
-            generateTreemaps(['Vienna', 'Rome', 'Budapest'], 'height-500');
+            generateTreemaps(['Vienna', 'Rome', 'Budapest']);
         } else if (this.value === 'Couple') {
-            generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam'], 'height-350');
+            generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
         }
     });
 });
 
-generateTreemaps(['Vienna', 'Rome', 'Budapest'], 'height-500');
+generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
 
 
 
