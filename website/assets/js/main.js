@@ -49,13 +49,13 @@ class ViolinPlot {
                 .domain([0, d3.max(summaryStatistics, d => d.max)]);
             console.log(xScale);
             console.log(yScale);
-                
+
             const kde = kernelDensityEstimator(kernelEpanechnikov(7), yScale.ticks(40)); // adjust bandwidth and number of ticks as needed
             const densityData = Array.from(groupedData, ([city, values]) => ({
                 city,
                 density: kde(values.map(d => +d.realSum)),
             }));
-                
+
             // Now, create the area generator for the violins
             const areaGenerator = d3.area()
                 .x0(d => xScale(d.city) - yScale(d[1]))
@@ -63,13 +63,13 @@ class ViolinPlot {
                 .y(d => yScale(d[0]))
                 .curve(d3.curveCatmullRom);
             console.log(areaGenerator);
-                
+
             // const areaGenerator = d3.area()
             //     .x0(d => xScale(d.city) - d.q3)
             //     .x1(d => xScale(d.city) + d.q3)
             //     .y(d => yScale(d.median))
             //     .curve(d3.curveCatmullRom);
-                
+
             // Draw the violins
             this.svg.selectAll('.violin')
                 .data(densityData) // summaryStatistics
@@ -78,20 +78,20 @@ class ViolinPlot {
                 .attr('class', 'violin')
                 .attr('d', areaGenerator)
                 .attr('fill', '#69b3a2'); // change to desired color
-                
+
             function kernelDensityEstimator(kernel, X) { // general function for estimating the kernel density
-                return function(V) {
-                    return X.map(function(x) {
-                        return [x, d3.mean(V, function(v) { return kernel(x - v); })];
+                return function (V) {
+                    return X.map(function (x) {
+                        return [x, d3.mean(V, function (v) { return kernel(x - v); })];
                     });
                 };
             }
-                
+
             function kernelEpanechnikov(k) { // adjust the bandwidth of the kernel to change how smooth or rough the violin shape is.
-                return function(v) {
+                return function (v) {
                     return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
                 };
-            }              
+            }
         });
     }
 }
@@ -99,72 +99,6 @@ class ViolinPlot {
 
 
 // Tree map graph /////////////////////////////////////////////////////////////////////////////////////////
-
-// // Function to load CSV data
-// function loadCSVData(url, callback) {
-//     Papa.parse(url, {
-//         download: true,
-//         header: true,
-//         complete: function (results) {
-//             callback(results.data);
-//         }
-//     });
-// }
-
-// /// Load the CSV data
-// loadCSVData('data/tree_map.csv', function (data) {
-//     // Filter data for the city Athens
-//     var cityDataAthens = data.filter(item => item.city === 'athens');
-
-//     // Prepare data for the Athens treemap
-//     var treemapDataAthens = [{
-//         type: 'treemap',
-//         labels: cityDataAthens.map(item => item.person_capacity),
-//         parents: cityDataAthens.map(() => 'athens'),
-//         values: cityDataAthens.map(item => parseFloat(item.count)),
-//         textinfo: 'label+value+percent root',
-//         marker: {
-//             colors: cityDataAthens.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
-//                 item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
-//         }
-//     }];
-
-//     // Layout for the Athens treemap
-//     var layoutAthens = {
-//         autosize: true,
-//         title: 'Person Capacity in Athens',
-//     };
-
-//     // Generate the Athens treemap
-//     Plotly.newPlot('treemap-athens', treemapDataAthens, layoutAthens);
-
-//     // Filter data for the city Lisbon
-//     var cityDataLisbon = data.filter(item => item.city === 'lisbon');
-
-//     // Prepare data for the Lisbon treemap
-//     var treemapDataLisbon = [{
-//         type: 'treemap',
-//         labels: cityDataLisbon.map(item => item.person_capacity),
-//         parents: cityDataLisbon.map(() => 'lisbon'),
-//         values: cityDataLisbon.map(item => parseFloat(item.count)),
-//         textinfo: 'label+value+percent root',
-//         marker: {
-//             colors: cityDataLisbon.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
-//                 item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
-//         }
-//     }];
-
-//     // Layout for the Lisbon treemap
-//     var layoutLisbon = {
-//         autosize: true,
-//         title: 'Person Capacity in Lisbon',
-//     };
-
-//     // Generate the Lisbon treemap
-//     Plotly.newPlot('treemap-lisbon', treemapDataLisbon, layoutLisbon);
-// });
-
-// Include this in your main.js file
 
 // Function to load CSV data
 function loadCSVData(url, callback) {
@@ -225,8 +159,7 @@ document.getElementsByName('category').forEach(function (radio) {
     });
 });
 
-generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
-
+generateTreemaps(['Vienna', 'Rome', 'Budapest']);
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
