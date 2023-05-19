@@ -4,6 +4,7 @@
 
 class ViolinPlot {
     constructor(svg_element_id, csv_file_path) {
+        console.log("Starting script...");
         // Define SVG dimensions if not already set in CSS
         const width = 500;  // adjust width as necessary
         const height = 500;  // adjust height as necessary
@@ -11,8 +12,10 @@ class ViolinPlot {
         // Create the SVG for the violin plot
         this.svg = d3.select('#' + svg_element_id)
             .append('svg')
-            .attr('width', width)
-            .attr('height', height);
+            .attr("width", width + "px")
+            .attr("height", height + "px");
+         
+        console.log("SVG created...");
 
         // test if ll the rest is working
         this.svg.append('rect')
@@ -21,6 +24,7 @@ class ViolinPlot {
             .attr('width', 100)
             .attr('height', 100)
             .style('fill', 'blue');
+        console.log("rect blue created...");
 
 
         // Load the data and create the plot
@@ -56,14 +60,20 @@ class ViolinPlot {
             const yScale = d3.scaleLinear()
                 .range([height, 0])  // adjust range to match height of SVG
                 .domain([0, d3.max(summaryStatistics, d => d.max)]);
+            console.log("set the scale done : ");
             console.log(xScale);
             console.log(yScale);
 
             const kde = kernelDensityEstimator(kernelEpanechnikov(7), yScale.ticks(40)); // adjust bandwidth and number of ticks as needed
+            console.log("kde done :");
+            console.log(kde);
+
             const densityData = Array.from(groupedData, ([city, values]) => ({
                 city,
                 density: kde(values.map(d => +d.realSum)),
             }));
+            console.log("densityData done :");
+            console.log(densityData);
 
             // Now, create the area generator for the violins
             const areaGenerator = d3.area()
@@ -71,6 +81,7 @@ class ViolinPlot {
                 .x1(d => xScale(d.city) + yScale(d[1]))
                 .y(d => yScale(d[0]))
                 .curve(d3.curveCatmullRom);
+            console.log("areaGenerator done :");
             console.log(areaGenerator);
 
             // const areaGenerator = d3.area()
@@ -87,6 +98,8 @@ class ViolinPlot {
                 .attr('class', 'violin')
                 .attr('d', areaGenerator)
                 .attr('fill', '#69b3a2'); // change to desired color
+            console.log("svg updated :");
+            console.log(svg);
 
             function kernelDensityEstimator(kernel, X) { // general function for estimating the kernel density
                 return function (V) {
