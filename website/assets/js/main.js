@@ -26,20 +26,31 @@ class ViolinPlot {
             .style('fill', 'blue');
         console.log("rect blue created...");
 
+        function kernelDensityEstimator(kernel, X) { // general function for estimating the kernel density
+            return function (V) {
+                return X.map(function (x) {
+                    return [x, d3.mean(V, function (v) { return kernel(x - v); })];
+                });
+            };
+        }
+
+        function kernelEpanechnikov(k) { // adjust the bandwidth of the kernel to change how smooth or rough the violin shape is.
+            return function (v) {
+                return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
+            };
+        }
 
         // Load the data and create the plot
         d3.csv(csv_file_path).then(data => {
-            console.log('Length:', data.length);
-            console.log('First element:', data[0]);
-            console.log('Last element:', data[data.length - 1]);
+            console.log('data:', data);
 
             // Filter the data for only weekends
             const weekendData = data.filter(d => d.time === 'weekends');
-            console.log(weekendData);
+            console.log('weekendData', weekendData);
 
             // Group the data by city
             const groupedData = d3.group(weekendData, d => d.city);
-            console.log(groupedData);
+            console.log('groupedData',groupedData);
 
             // Calculate the summary statistics for each city (min, max, and quartiles)
             const summaryStatistics = Array.from(groupedData, ([city, values]) => ({
@@ -50,7 +61,7 @@ class ViolinPlot {
                 q3: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.75),
                 max: d3.max(values, d => +d.realSum),
             }));
-            console.log(summaryStatistics);
+            console.log('summaryStatistics',summaryStatistics);
 
             // Set the scales 
             const xScale = d3.scaleBand()
@@ -72,8 +83,21 @@ class ViolinPlot {
                 city,
                 density: kde(values.map(d => +d.realSum)),
             }));
+            
+            // // Adjust density data calculation
+            // const densityData = summaryStatistics.map(stat => ({
+            //     city: stat.city,
+            //     density: kde(Array.from({length: stat.max - stat.min + 1}, (_, i) => stat.min + i)),
+            // }));
             console.log("densityData done :");
             console.log(densityData);
+
+            // // Create area generator for the violins
+            // const areaGenerator = d3.area()
+            //     .x0(d => xScale(d.city) - (xScale.bandwidth()/2) * d[1])
+            //     .x1(d => xScale(d.city) + (xScale.bandwidth()/2) * d[1])
+            //     .y(d => yScale(d[0]))
+            //     .curve(d3.curveCatmullRom);
 
             // Now, create the area generator for the violins
             const areaGenerator = d3.area()
@@ -101,19 +125,6 @@ class ViolinPlot {
             console.log("svg updated :");
             console.log(svg);
 
-            function kernelDensityEstimator(kernel, X) { // general function for estimating the kernel density
-                return function (V) {
-                    return X.map(function (x) {
-                        return [x, d3.mean(V, function (v) { return kernel(x - v); })];
-                    });
-                };
-            }
-
-            function kernelEpanechnikov(k) { // adjust the bandwidth of the kernel to change how smooth or rough the violin shape is.
-                return function (v) {
-                    return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
-                };
-            }
         });
     }
 }
