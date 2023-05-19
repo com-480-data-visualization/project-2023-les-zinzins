@@ -201,11 +201,11 @@ section#section_3 li {
 /* Include this in your style.css file */
 
 body,
-/* html {
+html {
     margin: 0;
     padding: 0;
     /* This removes the default margin and padding that some browsers apply */
-/* }  */
+}
 
 
 .treemap-container {
@@ -227,7 +227,7 @@ body,
     box-sizing: border-box;
     width: 33.33%;
     /* to have 3 treemaps per row */
-    height: 400px;
+    height: 500px;
     margin-right: 0px;
 }
 
@@ -238,6 +238,6 @@ body,
     box-sizing: border-box;
     width: 50%;
     /* to have 3 treemaps per row */
-    height: 400px;
+    height: 500px;
     margin-right: 0px;
 }
