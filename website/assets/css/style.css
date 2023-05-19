@@ -200,6 +200,15 @@ section#section_3 li {
 /* Divs where the treemaps will be displayed */
 /* Include this in your style.css file */
 
+.height-350 {
+    height: 350px;
+}
+
+.height-500 {
+    height: 500px;
+}
+
+
 body,
 html {
     margin: 0;
@@ -227,7 +236,6 @@ html {
     box-sizing: border-box;
     width: 33.33%;
     /* to have 3 treemaps per row */
-    height: 350px;
     margin-right: 0px;
 }
 
@@ -238,6 +246,5 @@ html {
     box-sizing: border-box;
     width: 50%;
     /* to have 3 treemaps per row */
-    height: 350px;
     margin-right: 0px;
 }

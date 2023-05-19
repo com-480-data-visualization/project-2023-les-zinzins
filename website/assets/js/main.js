@@ -112,7 +112,7 @@ function loadCSVData(url, callback) {
 }
 
 // Function to generate treemaps for provided cities
-function generateTreemaps(cities) {
+function generateTreemaps(cities, heightClass) {
     loadCSVData('data/tree_map.csv', function (data) {
         cities.forEach(function (city, index) {
             var cityData = data.filter(item => item.city === city.toLowerCase());
@@ -135,31 +135,40 @@ function generateTreemaps(cities) {
             };
 
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
+
+            // Applying the height class to treemap divs
+            var treemapDiv = document.getElementById(`treemap-${index + 1}`);
+            treemapDiv.className = ''; // reset the class
+            treemapDiv.classList.add(heightClass); // add the new class
         });
     });
 }
 
+
 function clearTreemaps() {
     ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
         Plotly.purge(id);
+        document.getElementById(id).className = '';
     });
 }
+
 
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
         clearTreemaps();
 
         if (this.value === 'Group') {
-            generateTreemaps(['Athens', 'Lisbon']);
+            generateTreemaps(['Athens', 'Lisbon'], 'height-500');
         } else if (this.value === 'Family') {
-            generateTreemaps(['Vienna', 'Rome', 'Budapest']);
+            generateTreemaps(['Vienna', 'Rome', 'Budapest'], 'height-500');
         } else if (this.value === 'Couple') {
-            generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
+            generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam'], 'height-350');
         }
     });
 });
 
-generateTreemaps(['Vienna', 'Rome', 'Budapest']);
+generateTreemaps(['Vienna', 'Rome', 'Budapest'], 'height-500');
+
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
