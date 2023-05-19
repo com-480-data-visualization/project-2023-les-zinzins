@@ -14,6 +14,15 @@ class ViolinPlot {
             .attr('width', width)
             .attr('height', height);
 
+        // test if ll the rest is working
+        this.svg.append('rect')
+            .attr('x', 50)
+            .attr('y', 50)
+            .attr('width', 100)
+            .attr('height', 100)
+            .style('fill', 'blue');
+
+
         // Load the data and create the plot
         d3.csv(csv_file_path).then(data => {
             console.log('Length:', data.length);
