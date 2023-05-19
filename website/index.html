@@ -151,17 +151,16 @@
 
         <section id="section_3">
             <h1>Capacities of the Airbnb</h1>
-            <!-- <h2>Tree map</h2> -->
-            <!-- <p>When a user chooses category, the cities with the most apartments of that capacity are displayed
-                using a tree map of the Airbnb capacities in that city</p> -->
-            <!-- <p><em>Cities the most suited to you if you want to travel: </em>There will be three options.</p> -->
-            <p><em>Cities the most suited to you if you want to travel: </em></p>
-
-            <ul>
-                <li><input type="radio" name="category" value="Family" checkedC>In family (3-5 persons)</li>
-                <li><input type="radio" name="category" value="Couple">In couple (2 persons)</li>
-                <li><input type="radio" name="category" value="Group">In group (6 persons)</li>
-            </ul>
+            <div class="selection">
+                <p><em>Best destinations if you travel: </em></p>
+                <div class="radio-options">
+                    <ul class="radio-list">
+                        <li><input type="radio" name="category" value="Family" checked>In family (3-5 persons)</li>
+                        <li><input type="radio" name="category" value="Couple">In couple (2 persons)</li>
+                        <li><input type="radio" name="category" value="Group">In group (6 persons)</li>
+                    </ul>
+                </div>
+            </div>
             <!-- Divs where the treemaps will be displayed -->
             <div class="treemap-container">
                 <div id="treemap-1"></div>
@@ -171,6 +170,8 @@
                 <div id="treemap-5"></div>
             </div>
         </section>
+
+
 
 
         <section id="section_4">

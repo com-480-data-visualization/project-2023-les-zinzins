@@ -122,7 +122,6 @@ function loadCSVData(url, callback) {
     });
 }
 
-// Function to generate treemaps for provided cities
 function generateTreemaps(cities) {
     loadCSVData('data/tree_map.csv', function (data) {
         cities.forEach(function (city, index) {
@@ -130,31 +129,58 @@ function generateTreemaps(cities) {
 
             var treemapData = [{
                 type: 'treemap',
-                labels: cityData.map(item => item.person_capacity),
-                parents: cityData.map(() => city),
+                labels: cityData.map(item => `${item.person_capacity} Airbnbs`),
+                parents: cityData.map(() => `${city} Airbnbs`),
                 values: cityData.map(item => parseFloat(item.count)),
                 textinfo: 'label+value+percent root',
+                hovertemplate: '%{label}<br>%{value} Airbnbs<br>%{percentRoot:.2%} of the Airbnbs<extra></extra>',
                 marker: {
                     colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
                         item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+                },
+                marker: {
+                    colors: cityData.map(item => item.person_capacity === 'Family' ? '#1f77b4' :
+                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+                },
+                marker: {
+                    colors: cityData.map(item => item.person_capacity === 'Group' ? '#1f77b4' :
+                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
                 }
+
             }];
+
 
             var layout = {
                 autosize: true
-                // Removed title
             };
+
+            // Get the element
+            let element = document.getElementById(`treemap-${index + 1}`);
+
+            // Add the height class
+            element.classList.add('height-350');
+
+            // Check the city name and add the corresponding width class
+            if (city === 'Athens' || city === 'Lisbon' || city === 'Barcelona' || city === 'Amsterdam') {
+                element.classList.add('width-50');
+            } else {
+                element.classList.add('width-33');
+            }
 
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
         });
     });
 }
 
+
 function clearTreemaps() {
     ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
+        let element = document.getElementById(id);
+        element.classList.remove('height-350', 'width-33', 'width-50');
         Plotly.purge(id);
     });
 }
+
 
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
@@ -170,7 +196,7 @@ document.getElementsByName('category').forEach(function (radio) {
     });
 });
 
-generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
+generateTreemaps(['Vienna', 'Rome', 'Budapest']);
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////

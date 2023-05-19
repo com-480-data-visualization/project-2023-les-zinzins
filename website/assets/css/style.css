@@ -197,8 +197,57 @@ section#section_3 li {
     margin-bottom: 5px;
 }
 
-/* Divs where the treemaps will be displayed */
-/* Include this in your style.css file */
+/* Treemap CSS */
+
+.selection {
+    display: flex;
+    align-items: center;
+}
+
+.selection p em {
+    line-height: 1;
+    /* Adjust this value if needed */
+}
+
+.selection p,
+.selection .radio-options {
+    margin: 0;
+}
+
+.radio-options {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.radio-list {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    /* Change this value to change the text size */
+    display: flex;
+    align-items: center;
+}
+
+.radio-list li {
+    display: inline-block;
+    margin-right: 10px;
+    /* Adds some space between the radio buttons */
+}
+
+
+.radio-list {
+    list-style: none !important;
+}
+
+.width-33 {
+    width: 33.33%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
 
 body,
 html {
@@ -225,9 +274,9 @@ html {
     border: none;
     margin-bottom: 0px;
     box-sizing: border-box;
-    width: 33.33%;
+    /* width: 33.33%; */
     /* to have 3 treemaps per row */
-    height: 350px;
+    height: 450px;
     margin-right: 0px;
 }
 
@@ -236,8 +285,8 @@ html {
     border: none;
     margin-bottom: 0px;
     box-sizing: border-box;
-    width: 50%;
+    /* width: 50%; */
     /* to have 3 treemaps per row */
-    height: 350px;
+    height: 450px;
     margin-right: 0px;
 }
