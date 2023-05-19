@@ -1,134 +1,111 @@
 
 // Violin plot /////////////////////////////////////////////////////////////////////////////////////////
 
+function drawPlot(timePeriod) {
+    d3.csv("../all_data.csv").then(function(data) {
+        let processedData = data
+            .filter(d => +d.realSum <= 1000 && d.time === timePeriod)
+            .map(function(d) {
+                return {
+                    realSum: +d.realSum,  // '+' is used to convert string to number
+                    time: d.time,
+                    city: d.city.charAt(0).toUpperCase() + d.city.slice(1)
+                };
+            });
+    console.log('processedData violin plot:', processedData);
 
-class ViolinPlot {
-    constructor(svg_element_id, csv_file_path) {
-        console.log("Starting script...");
-        // Define SVG dimensions if not already set in CSS
-        const width = 500;  // adjust width as necessary
-        const height = 500;  // adjust height as necessary
-
-        // Create the SVG for the violin plot
-        this.svg = d3.select('#' + svg_element_id)
-            .append('svg')
-            .attr("width", width + "px")
-            .attr("height", height + "px");
-
-        console.log("SVG created...");
-
-        // test if ll the rest is working
-        this.svg.append('rect')
-            .attr('x', 50)
-            .attr('y', 50)
-            .attr('width', 100)
-            .attr('height', 100)
-            .style('fill', 'blue');
-        console.log("rect blue created...");
-
-        function kernelDensityEstimator(kernel, X) { // general function for estimating the kernel density
-            return function (V) {
-                return X.map(function (x) {
-                    return [x, d3.mean(V, function (v) { return kernel(x - v); })];
-                });
-            };
-        }
-
-        function kernelEpanechnikov(k) { // adjust the bandwidth of the kernel to change how smooth or rough the violin shape is.
-            return function (v) {
-                return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
-            };
-        }
-
-        // Load the data and create the plot
-        d3.csv(csv_file_path).then(data => {
-            console.log('data:', data);
-
-            // Filter the data for only weekends
-            const weekendData = data.filter(d => d.time === 'weekends');
-            console.log('weekendData', weekendData);
-
-            // Group the data by city
-            const groupedData = d3.group(weekendData, d => d.city);
-            console.log('groupedData',groupedData);
-
-            // Calculate the summary statistics for each city (min, max, and quartiles)
-            const summaryStatistics = Array.from(groupedData, ([city, values]) => ({
-                city,
-                min: d3.min(values, d => +d.realSum),
-                q1: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.25),
-                median: d3.median(values, d => +d.realSum),
-                q3: d3.quantile(values.map(d => +d.realSum).sort(d3.ascending), 0.75),
-                max: d3.max(values, d => +d.realSum),
-            }));
-            console.log('summaryStatistics',summaryStatistics);
-
-            // Set the scales 
-            const xScale = d3.scaleBand()
-                .range([0, width])  // adjust range to match width of SVG
-                .domain(summaryStatistics.map(d => d.city))
-                .padding(0.05);
-            const yScale = d3.scaleLinear()
-                .range([height, 0])  // adjust range to match height of SVG
-                .domain([0, d3.max(summaryStatistics, d => d.max)]);
-            console.log("set the scale done : ");
-            console.log(xScale);
-            console.log(yScale);
-
-            const kde = kernelDensityEstimator(kernelEpanechnikov(7), yScale.ticks(40)); // adjust bandwidth and number of ticks as needed
-            console.log("kde done :");
-            console.log(kde);
-
-            const densityData = Array.from(groupedData, ([city, values]) => ({
-                city,
-                density: kde(values.map(d => +d.realSum)),
-            }));
-            
-            // // Adjust density data calculation
-            // const densityData = summaryStatistics.map(stat => ({
-            //     city: stat.city,
-            //     density: kde(Array.from({length: stat.max - stat.min + 1}, (_, i) => stat.min + i)),
-            // }));
-            console.log("densityData done :");
-            console.log(densityData);
-
-            // // Create area generator for the violins
-            // const areaGenerator = d3.area()
-            //     .x0(d => xScale(d.city) - (xScale.bandwidth()/2) * d[1])
-            //     .x1(d => xScale(d.city) + (xScale.bandwidth()/2) * d[1])
-            //     .y(d => yScale(d[0]))
-            //     .curve(d3.curveCatmullRom);
-
-            // Now, create the area generator for the violins
-            const areaGenerator = d3.area()
-                .x0(d => xScale(d.city) - yScale(d[1]))
-                .x1(d => xScale(d.city) + yScale(d[1]))
-                .y(d => yScale(d[0]))
-                .curve(d3.curveCatmullRom);
-            console.log("areaGenerator done :");
-            console.log(areaGenerator);
-
-            // const areaGenerator = d3.area()
-            //     .x0(d => xScale(d.city) - d.q3)
-            //     .x1(d => xScale(d.city) + d.q3)
-            //     .y(d => yScale(d.median))
-            //     .curve(d3.curveCatmullRom);
-
-            // Draw the violins
-            this.svg.selectAll('.violin')
-                .data(densityData) // summaryStatistics
-                .enter()
-                .append('path')
-                .attr('class', 'violin')
-                .attr('d', areaGenerator)
-                .attr('fill', '#69b3a2'); // change to desired color
-            console.log("svg updated :");
-            console.log(svg);
-
-        });
+    function unpack(rows, key) {
+        return rows.map(function(row) { return row[key]; });
     }
+
+    var data = [{
+        type: 'violin',
+        x: unpack(processedData, 'city'),
+        y: unpack(processedData, 'realSum'),
+        points: 'none',
+        box: {
+            visible: true
+        },
+        line: {
+            color: 'green',
+        },
+        meanline: {
+            visible: true
+        },
+        transforms: [{
+            type: 'groupby',
+            groups: unpack(processedData, 'city'),
+            styles: [
+                {target: 'Paris', value: {line: {color: 'orange'}}},
+                {target: 'Amsterdam', value: {line: {color: 'orange'}}},
+                {target: 'Berlin', value: {line: {color: 'orange'}}},
+                {target: 'Barcelona', value: {line: {color: 'orange'}}},
+                {target: 'Budapest', value: {line: {color: 'orange'}}},
+                {target: 'Lisbon', value: {line: {color: 'orange'}}},
+                {target: 'Rome', value: {line: {color: 'orange'}}},
+                {target: 'Vienna', value: {line: {color: 'orange'}}},
+                {target: 'Athens', value: {line: {color: 'orange'}}},
+                {target: 'London', value: {line: {color: 'orange'}}}
+            ]
+        }]
+    }] 
+
+    var layout = {
+        title: "Multiple Traces Violin Plot",
+        yaxis: {
+          zeroline: false,
+          range: [0, 1000] 
+        },
+        autosize: false,
+        width: 800,
+        height: 400,
+        showlegend: false
+      }
+      
+
+    Plotly.newPlot('myDiv', data, layout);
+
+    }).catch(function(error) {
+        console.log(error);
+    });
 }
 
+// Call the function at the beginning to draw the initial plot
+drawPlot('weekdays');
+
+
+// Radar chart /////////////////////////////////////////////////////////////////////////////////////////
+
+var marksCanvas = document.getElementById("marksChart");
+
+d3.csv("../all_data.csv").then(data => {
+    // Preprocessing: calculate the mean distance to the center and to the metro for each city
+    const cityGroups = d3.group(data, d => d.city);
+
+    const labels = Array.from(cityGroups.keys()).map(city => city.charAt(0).toUpperCase() + city.slice(1));
+    const distData = Array.from(cityGroups.values()).map(values => d3.mean(values, v => v.dist));
+    const metroDistData = Array.from(cityGroups.values()).map(values => d3.mean(values, v => v.metro_dist));
+
+    var marksData = {
+        labels: labels,
+        datasets: [{
+            label: "Distance to the center [km]",
+            backgroundColor: "rgba(200,0,0,0.2)",
+            data: distData
+        }, {
+            label: "Distance to the metro [km]",
+            backgroundColor: "rgba(0,0,200,0.2)",
+            data: metroDistData
+        }]
+    };
+
+    var radarChart = new Chart(marksCanvas, {
+        type: 'radar',
+        data: marksData
+    });
+}).catch(error => {
+    console.log(error);
+});
 
 
 // Tree map graph /////////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +171,6 @@ document.getElementsByName('category').forEach(function (radio) {
 });
 
 generateTreemaps(['Paris', 'London', 'Berlin', 'Barcelona', 'Amsterdam']);
-
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
@@ -355,6 +331,5 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
     map_plot_object = new MapPlot('map-plot');
     // plot object is global, you can inspect it in the dev-console
-    violin_plot_object = new ViolinPlot('violin-plot', '../all_data.csv');
 });
 

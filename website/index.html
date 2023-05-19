@@ -17,6 +17,13 @@
     <!-- Include libraries -->
     <!-- D3.js -->
     <script src="https://d3js.org/d3.v7.min.js" defer></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script> -->
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+    <!-- Load plotly.js into the DOM -->
+	<script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
 
     <!-- TopoJSON -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
@@ -124,15 +131,19 @@
             <p>For each city, a violin plot is designed. The thickness corresponds to the number of apartments at that
                 price, and the median and 25-75% quartiles are indicated
             </p>
-            <p><em>Test 123456 Data switch:</em> Weekday / weekend</p>
-            <div id="violin-plot"></div>
+            <p><em>Switch</em> Weekday / weekend</p>
+            <button onclick="drawPlot('weekdays')">Weekdays</button>
+            <button onclick="drawPlot('weekends')">Weekends</button>
+            <div id='myDiv'></div>
         </section>
 
         <section id="section_2">
-            <h1>Distance to downtown</h1>
+            <h1>Location overview</h1>
             <h2>Radar chart</h2>
-            <p>Each city is the edge of the circle and the radar plot indicates the distance to the city center.</p>
-            <p><em>Data switch: </em>Distance to downtown or distance to metro</p>
+            <!-- <p> </p> -->
+            <div style="width: 50%; height: 50%;">
+                <canvas id="marksChart"></canvas>
+            </div>
         </section>
 
 
