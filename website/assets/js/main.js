@@ -109,7 +109,6 @@ d3.csv("../all_data.csv").then(data => {
 
 // Tree map graph /////////////////////////////////////////////////////////////////////////////////////////
 
-
 // Function to load CSV data
 function loadCSVData(url, callback) {
     Papa.parse(url, {
@@ -166,19 +165,9 @@ function generateTreemaps(cities) {
 }
 
 
-function clearTreemaps() {
-    ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
-        let element = document.getElementById(id);
-        element.classList.remove('height-350', 'width-33', 'width-50');
-        Plotly.purge(id);
-    });
-}
-
 
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
-        clearTreemaps();
-
         if (this.value === 'Group') {
             generateTreemaps(['Athens', 'Lisbon']);
         } else if (this.value === 'Family') {

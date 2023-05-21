@@ -162,6 +162,15 @@ nav {
     filter: url(#solid_active);
 }
 
+/* Section 2 radar chart */
+
+.radar-chart-container {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    margin: 0 auto;
+}
+
 /* CSS for the third section */
 section#section_3 {
     padding: 20px;
@@ -196,7 +205,6 @@ section#section_3 li {
 }
 
 /* Treemap CSS */
-
 .selection {
     display: flex;
     align-items: center;
