@@ -2,76 +2,75 @@
 // Violin plot /////////////////////////////////////////////////////////////////////////////////////////
 
 function drawPlot(timePeriod) {
-    d3.csv("../all_data.csv").then(function(data) {
+    d3.csv("../all_data.csv").then(function (data) {
         let processedData = data
             .filter(d => +d.realSum <= 1000 && d.time === timePeriod)
-            .map(function(d) {
+            .map(function (d) {
                 return {
                     realSum: +d.realSum,  // '+' is used to convert string to number
                     time: d.time,
                     city: d.city.charAt(0).toUpperCase() + d.city.slice(1)
                 };
             });
-    console.log('processedData violin plot:', processedData);
+        console.log('processedData violin plot:', processedData);
 
-    function unpack(rows, key) {
-        return rows.map(function(row) { return row[key]; });
-    }
+        function unpack(rows, key) {
+            return rows.map(function (row) { return row[key]; });
+        }
 
-    var data = [{
-        type: 'violin',
-        x: unpack(processedData, 'city'),
-        y: unpack(processedData, 'realSum'),
-        points: 'none',
-        box: {
-            visible: true
-        },
-        line: {
-            color: 'green',
-        },
-        meanline: {
-            visible: true
-        },
-        transforms: [{
-            type: 'groupby',
-            groups: unpack(processedData, 'city'),
-            styles: [
-                {target: 'Paris', value: {line: {color: 'orange'}}},
-                {target: 'Amsterdam', value: {line: {color: 'orange'}}},
-                {target: 'Berlin', value: {line: {color: 'orange'}}},
-                {target: 'Barcelona', value: {line: {color: 'orange'}}},
-                {target: 'Budapest', value: {line: {color: 'orange'}}},
-                {target: 'Lisbon', value: {line: {color: 'orange'}}},
-                {target: 'Rome', value: {line: {color: 'orange'}}},
-                {target: 'Vienna', value: {line: {color: 'orange'}}},
-                {target: 'Athens', value: {line: {color: 'orange'}}},
-                {target: 'London', value: {line: {color: 'orange'}}}
-            ]
+        var data = [{
+            type: 'violin',
+            x: unpack(processedData, 'city'),
+            y: unpack(processedData, 'realSum'),
+            points: 'none',
+            box: {
+                visible: true
+            },
+            line: {
+                color: 'green',
+            },
+            meanline: {
+                visible: true
+            },
+            transforms: [{
+                type: 'groupby',
+                groups: unpack(processedData, 'city'),
+                styles: [
+                    { target: 'Paris', value: { line: { color: 'orange' } } },
+                    { target: 'Amsterdam', value: { line: { color: 'orange' } } },
+                    { target: 'Berlin', value: { line: { color: 'orange' } } },
+                    { target: 'Barcelona', value: { line: { color: 'orange' } } },
+                    { target: 'Budapest', value: { line: { color: 'orange' } } },
+                    { target: 'Lisbon', value: { line: { color: 'orange' } } },
+                    { target: 'Rome', value: { line: { color: 'orange' } } },
+                    { target: 'Vienna', value: { line: { color: 'orange' } } },
+                    { target: 'Athens', value: { line: { color: 'orange' } } },
+                    { target: 'London', value: { line: { color: 'orange' } } }
+                ]
+            }]
         }]
-    }] 
 
-    var layout = {
-        title: "Multiple Traces Violin Plot",
-        yaxis: {
-          zeroline: false,
-          range: [0, 1000] 
-        },
-        autosize: false,
-        width: 800,
-        height: 400,
-        showlegend: false
-      }
-      
+        var layout = {
+            title: "Multiple Traces Violin Plot",
+            yaxis: {
+                zeroline: false,
+                range: [0, 1000]
+            },
+            autosize: false,
+            width: 800,
+            height: 400,
+            showlegend: false
+        }
 
-    Plotly.newPlot('myDiv', data, layout);
 
-    }).catch(function(error) {
+        Plotly.newPlot('myDiv', data, layout);
+
+    }).catch(function (error) {
         console.log(error);
     });
 }
 
-// Call the function at the beginning to draw the initial plot
-drawPlot('weekdays');
+
 
 
 // Radar chart /////////////////////////////////////////////////////////////////////////////////////////
@@ -151,21 +150,15 @@ function generateTreemaps(cities) {
 
 
             var layout = {
+                margin: {
+                    l: 0,
+                    r: 0,
+                    b: 0,
+                    t: 0,
+                    pad: 10
+                },
                 autosize: true
             };
-
-            // Get the element
-            let element = document.getElementById(`treemap-${index + 1}`);
-
-            // Add the height class
-            element.classList.add('height-350');
-
-            // Check the city name and add the corresponding width class
-            if (city === 'Athens' || city === 'Lisbon' || city === 'Barcelona' || city === 'Amsterdam') {
-                element.classList.add('width-50');
-            } else {
-                element.classList.add('width-33');
-            }
 
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
         });
@@ -196,7 +189,7 @@ document.getElementsByName('category').forEach(function (radio) {
     });
 });
 
-generateTreemaps(['Vienna', 'Rome', 'Budapest']);
+
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
@@ -355,7 +348,8 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
+    drawPlot('weekdays');
+    generateTreemaps(['Vienna', 'Rome', 'Budapest']);
     map_plot_object = new MapPlot('map-plot');
-    // plot object is global, you can inspect it in the dev-console
 });
 

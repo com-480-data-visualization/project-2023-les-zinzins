@@ -23,7 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 
     <!-- Load plotly.js into the DOM -->
-	<script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
+    <script src='https://cdn.plot.ly/plotly-2.20.0.min.js'></script>
 
     <!-- TopoJSON -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
@@ -78,7 +78,7 @@
             <g class="room" id="section_1_room">
                 <a href="#section_1">
                     <polygon points="0,421 1048,127 1450,421 1450,582 0,582 0,420" />
-                    <text x="50" y="550">Attic</text>
+                    <text x="50" y="550">Prices</text>
                 </a>
             </g>
 
@@ -87,7 +87,7 @@
             <g class="room" id="section_2_room">
                 <a href="#section_2">
                     <polygon points="0,582 1450,582 1450,1024 0,1024 0,582" />
-                    <text x="50" y="990">Bedroom</text>
+                    <text x="50" y="990">Location</text>
                 </a>
             </g>
 
@@ -95,7 +95,7 @@
             <g class="room" id="section_3_room">
                 <a href="#section_3">
                     <polygon points="0,1024 1450,1024 1450,1468 0,1468 0,1024" />
-                    <text x="50" y="1440">Living Room</text>
+                    <text x="50" y="1440">Capacities</text>
                 </a>
             </g>
 
@@ -103,12 +103,11 @@
             <g class="room" id="section_4_room">
                 <a href="#section_4">
                     <polygon points="0,1468 1222,1468 1222,1908 0,1908 0,1468" />
-                    <text x="50" y="1870">Basement</text>
+                    <text x="50" y="1870">Weather</text>
                 </a>
             </g>
 
-            <!-- rectangle to above on the left to hide the red backgrounds
-                when a room is active -->
+            <!-- rectangle above on the left to hide the red backgrounds when a room is active -->
             <rect x="0" y="422" width="22" height="1495" fill="#1a2e34"></rect>
 
         </svg>
@@ -127,18 +126,15 @@
 
         <section id="section_1">
             <h1>Prices overview</h1>
-            <h2>Violin chart</h2>
-            <p>For each city, a violin plot is designed. The thickness corresponds to the number of apartments at that
-                price, and the median and 25-75% quartiles are indicated   </p>
-            <button onclick="drawPlot('weekdays')">Weekdays</button>
-            <button onclick="drawPlot('weekends')">Weekends</button>
+            <div>
+                <button onclick="drawPlot('weekdays')">Weekdays</button>
+                <button onclick="drawPlot('weekends')">Weekends</button>
+            </div>
             <div id='myDiv'></div>
         </section>
 
         <section id="section_2">
             <h1>Location overview</h1>
-            <h2>Radar chart</h2>
-            <!-- <p> </p> -->
             <div style="width: 50%; height: 50%;">
                 <canvas id="marksChart"></canvas>
             </div>
@@ -153,9 +149,10 @@
                 <p><em>Best destinations if you travel: </em></p>
                 <div class="radio-options">
                     <ul class="radio-list">
-                        <li><input type="radio" name="category" value="Family" checked>In family (3-5 persons)</li>
-                        <li><input type="radio" name="category" value="Couple">In couple (2 persons)</li>
-                        <li><input type="radio" name="category" value="Group">In group (6 persons)</li>
+                        <li><label><input type="radio" name="category" value="Family" checked>In family (3-5
+                                persons)</label></li>
+                        <li><label><input type="radio" name="category" value="Couple">In couple (2 persons)</label></li>
+                        <li><label><input type="radio" name="category" value="Group">In group (6 persons)</label></li>
                     </ul>
                 </div>
             </div>
@@ -170,14 +167,8 @@
         </section>
 
 
-
-
         <section id="section_4">
             <h1>Weather</h1>
-            <h2>Geographical Map</h2>
-            <p>The size of the city dots is related to the number of sunny days, and clicking on a dot displays a curve
-                of the average temperature by month</p>
-
             <svg id="map-plot" viewBox="0 0 1000 550" width="1000" height="550">
                 <style>
                     #map-plot {

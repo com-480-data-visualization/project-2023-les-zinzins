@@ -1,5 +1,3 @@
-/* TODO: need to refactor into other files */
-
 /* Main */
 :root {
     /* TODO: choose font */
@@ -128,12 +126,12 @@ nav {
 }
 
 .room {
-    fill-opacity: 40%;
+    fill-opacity: 50%;
     font-size: 100px;
 }
 
 .room text {
-    fill: whitesmoke;
+    fill: #F0F0F0;
     fill-opacity: 0%;
     font-weight: bold;
 
@@ -144,7 +142,7 @@ nav {
 }
 
 .room:hover {
-    fill-opacity: 0%;
+    fill-opacity: 20%;
     cursor: pointer;
 }
 
@@ -240,53 +238,8 @@ section#section_3 li {
     list-style: none !important;
 }
 
-.width-33 {
-    width: 33.33%;
-}
-
-.width-50 {
-    width: 50%;
-}
-
-
-body,
-html {
-    margin: 0;
-    padding: 0;
-    /* This removes the default margin and padding that some browsers apply */
-}
-
-
 .treemap-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    /* ensures that the container takes up the full width */
-    padding: 0;
-    /* ensures that there's no padding on the container */
-    box-sizing: border-box;
-    /* includes padding and border in the element's total width and height */
-}
-
-#treemap-1,
-#treemap-2,
-#treemap-3 {
-    border: none;
-    margin-bottom: 0px;
-    box-sizing: border-box;
-    /* width: 33.33%; */
-    /* to have 3 treemaps per row */
-    height: 450px;
-    margin-right: 0px;
-}
-
-#treemap-4,
-#treemap-5 {
-    border: none;
-    margin-bottom: 0px;
-    box-sizing: border-box;
-    /* width: 50%; */
-    /* to have 3 treemaps per row */
-    height: 450px;
-    margin-right: 0px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(350px, auto);
 }
