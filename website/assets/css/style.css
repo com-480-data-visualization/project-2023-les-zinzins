@@ -48,6 +48,7 @@ section {
 section h1 {
     font-family: 'Comfortaa';
     font-size: 3em;
+    margin-bottom: 20px;
 }
 
 
@@ -162,6 +163,14 @@ nav {
     filter: url(#solid_active);
 }
 
+/* Section 1 violin chart */
+#violinChartDiv {
+    display: flex;
+    height: 100%;
+    /* width: 50%; */
+    margin: 0 auto;
+}
+
 /* Section 2 radar chart */
 
 .radar-chart-container {
@@ -176,16 +185,6 @@ section#section_3 {
     padding: 20px;
     overflow: auto;
     /* Add clearfix to parent element */
-}
-
-section#section_3 h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-}
-
-section#section_3 h2 {
-    font-size: 2em;
-    margin-bottom: 10px;
 }
 
 section#section_3 p {

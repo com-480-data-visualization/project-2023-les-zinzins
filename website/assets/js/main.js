@@ -63,7 +63,7 @@ function drawPlot(timePeriod) {
         }
 
 
-        Plotly.newPlot('myDiv', data, layout);
+        Plotly.newPlot('violinChartDiv', data, layout);
 
     }).catch(function (error) {
         console.log(error);
@@ -75,7 +75,7 @@ function drawPlot(timePeriod) {
 
 // Radar chart /////////////////////////////////////////////////////////////////////////////////////////
 
-var marksCanvas = document.getElementById("marksChart");
+var marksCanvas = document.getElementById("radarChartDiv");
 
 d3.csv("../all_data.csv").then(data => {
     // Preprocessing: calculate the mean distance to the center and to the metro for each city
