@@ -98,9 +98,21 @@ d3.csv("../all_data.csv").then(data => {
         }]
     };
 
+    Chart.defaults.font.size = 16;
     var radarChart = new Chart(marksCanvas, {
         type: 'radar',
-        data: marksData
+        data: marksData,
+        options: {
+            scales: {
+                r: {
+                    pointLabels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
     });
 }).catch(error => {
     console.log(error);
