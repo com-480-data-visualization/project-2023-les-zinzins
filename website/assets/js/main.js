@@ -176,10 +176,18 @@ function generateTreemaps(cities) {
     });
 }
 
+function clearTreemaps() {
+    ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
+        Plotly.purge(id);
+        document.getElementById(id).className = '';
+    });
+}
+
 
 
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
+        clearTreemaps();
         if (this.value === 'Group') {
             generateTreemaps(['Athens', 'Lisbon']);
         } else if (this.value === 'Family') {
