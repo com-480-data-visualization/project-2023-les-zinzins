@@ -163,7 +163,7 @@ nav {
     filter: url(#solid_active);
 }
 
-/* Section 1 violin chart */
+/* Section 1: Violin chart */
 #violinChartDiv {
     display: flex;
     height: 100%;
@@ -171,7 +171,7 @@ nav {
     margin: 0 auto;
 }
 
-/* Section 2 radar chart */
+/* Section 2: Radar chart */
 
 .radar-chart-container {
     display: flex;
@@ -203,7 +203,7 @@ section#section_3 li {
     margin-bottom: 5px;
 }
 
-/* Treemap CSS */
+/* Section 3: Treemaps*/
 .selection {
     display: flex;
     align-items: center;
@@ -249,4 +249,13 @@ section#section_3 li {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: minmax(350px, auto);
+}
+
+/* Section 4: Geographic map*/
+#mapTooltip {
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
+    background: #fff;
+    padding: 5px;
 }

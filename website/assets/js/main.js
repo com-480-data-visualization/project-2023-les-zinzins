@@ -12,7 +12,7 @@ function drawPlot(timePeriod) {
                     city: d.city.charAt(0).toUpperCase() + d.city.slice(1)
                 };
             });
-        console.log('processedData violin plot:', processedData);
+        // console.log('processedData violin plot:', processedData);
 
         function unpack(rows, key) {
             return rows.map(function (row) { return row[key]; });
@@ -231,7 +231,7 @@ class MapPlot {
             return topojson.feature(topojson_raw, topojson_raw.objects.continent_Europe_subunits);
         });
 
-        const cities_rain_promise = d3.csv("data/cities_rain_data_2022.csv").then((rain_data) => {
+        const cities_rain_promise = d3.csv("data/cities_rain_2022.csv").then((rain_data) => {
             // preprocess rain data here
 
             // type conversion and parsing
@@ -246,12 +246,30 @@ class MapPlot {
             return rain_data;
         });
 
+        const cities_temps_promise = d3.csv("data/cities_mean_temps_2022.csv").then((temps_data) => {
+            // preprocess rain data here
 
-        Promise.all([map_promise, cities_rain_promise]).then((results) => {
+            // type conversion and parsing
+            temps_data = temps_data.map(function (line) {
+
+                return {
+                    city: line.city,
+                    days: JSON.parse(line.days.replaceAll("'", '"')),
+                    mean_temps: JSON.parse(line.mean_temps)
+                }
+            });
+
+            return temps_data;
+        });
+
+
+        Promise.all([map_promise, cities_rain_promise, cities_temps_promise]).then((results) => {
             let topology = results[0];
             let map_data = topology.features;
 
             let cities_rain_data = results[1];
+            let cities_temps_data = results[2];
+            console.log(cities_temps_data)
 
             const get_sunny_days = function (d) {
                 // radius proportional to the number of sunny days
@@ -262,8 +280,6 @@ class MapPlot {
                     .filter(d => d <= 1.0)
                     .length;
             }
-
-            console.log('Data loaded');
 
             const map_center = d3.geoCentroid(topology);
 
@@ -303,11 +319,7 @@ class MapPlot {
             // Create tooltip group
             let tooltip = d3.select("body")
                 .append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "hidden")
-                .style("background", "#fff")
-                .style("padding", "5px")
+                .attr("id", "mapTooltip")
                 .text("a simple tooltip");
 
 
@@ -337,6 +349,25 @@ class MapPlot {
                         .style("opacity", 0.8);
                 });
         });
+    }
+
+    areaChartTemp(data) {
+        let tooltip = d3.select("#mapTooltip");
+
+        // Add X axis --> it is a date format
+        var x = d3.scaleTime()
+            .domain(d3.extent(data, function(d) { return d.date; }))
+            .range([ 0, width ]);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, d3.max(data, function(d) { return +d.value; })])
+            .range([ height, 0 ]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
     }
 }
 
