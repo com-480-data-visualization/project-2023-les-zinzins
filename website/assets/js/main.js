@@ -217,6 +217,18 @@ const city_coords = [
     { "name": "vienna", 'position': [16.363449, 48.210033] },
 ]
 
+const TEST_DATA = [
+    { date: "2020-01-01", value: "100" },
+    { date: "2020-01-02", value: "110" },
+    { date: "2020-01-03", value: "120" },
+    { date: "2020-01-04", value: "130" },
+    { date: "2020-01-05", value: "140" },
+    { date: "2020-01-06", value: "150" },
+    { date: "2020-01-07", value: "160" },
+    { date: "2020-01-08", value: "170" },
+]
+
+
 class MapPlot {
     constructor(svg_element_id) {
         this.svg = d3.select('#' + svg_element_id);
@@ -318,9 +330,13 @@ class MapPlot {
 
             // Create tooltip group
             let tooltip = d3.select("body")
-                .append("div")
-                .attr("id", "mapTooltip")
-                .text("a simple tooltip");
+                .append("div").attr("id", "mapTooltip");
+
+            let tooltip_svg = tooltip
+                .append("svg").attr("id", "mapTooltipSVG")
+                .attr("viewBox", "0 0 200 100")
+                .attr("width", 200)
+                .attr("height", 100);
 
 
             // Draw the city points
@@ -333,11 +349,56 @@ class MapPlot {
                 .attr("cy", d => projection(d.position)[1])
                 .attr("r", d => radius_scale(get_sunny_days(d)))
                 .on("mouseover", function (event, d) {
-                    tooltip.style("visibility", "visible").text(d.name);
+                    tooltip.style("visibility", "visible");
 
                     d3.select(this)
                         .style("stroke", "black")
                         .style("opacity", 1);
+
+                    // get the data
+                    let city_data = cities_temps_data.filter(item => item.city === d.name)[0];
+                    let data = city_data.days.map((day, i) => {  // map the days to the mean temps
+                        return {
+                            date: day,
+                            value: city_data.mean_temps[i]
+                        }
+                    });
+
+                    // format the data
+                    data = data.map(d => {
+                        return {
+                            date: d3.timeParse("%Y-%m-%d")(d.date),
+                            value: +d.value
+                        }
+                    });
+
+                    const line = d3.line()
+                        .x(d => x(d.date))
+                        .y(d => y(d.value));
+
+                    // Add X axis --> it is a date format
+                    var x = d3.scaleTime()
+                        .domain(d3.extent(data, function (d) { return d.date; }))
+                        .range([0, 200]);
+                    tooltip_svg.append("g")
+                        .attr("transform", "translate(0," + 100 + ")")
+                        .call(d3.axisBottom(x));
+
+                    // Add Y axis
+                    var y = d3.scaleLinear()
+                        .domain(d3.extent(data, function (d) { return +d.value; }))
+                        .range([100, 0]);
+                    tooltip_svg.append("g")
+                        .call(d3.axisLeft(y));
+
+                    tooltip_svg.selectAll("path")
+                        .datum(data)
+                        .join("path")
+                        .attr("fill", "none")
+                        .attr("stroke", "#69b3a2")
+                        .attr("stroke-width", 1.5)
+                        .attr("d", line);
+
                 })
                 .on("mousemove", function (event, d) {
                     tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
@@ -349,25 +410,6 @@ class MapPlot {
                         .style("opacity", 0.8);
                 });
         });
-    }
-
-    areaChartTemp(data) {
-        let tooltip = d3.select("#mapTooltip");
-
-        // Add X axis --> it is a date format
-        var x = d3.scaleTime()
-            .domain(d3.extent(data, function(d) { return d.date; }))
-            .range([ 0, width ]);
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
-        // Add Y axis
-        var y = d3.scaleLinear()
-            .domain([0, d3.max(data, function(d) { return +d.value; })])
-            .range([ height, 0 ]);
-        svg.append("g")
-            .call(d3.axisLeft(y));
     }
 }
 
