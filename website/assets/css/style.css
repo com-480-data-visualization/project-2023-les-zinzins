@@ -256,6 +256,14 @@ section#section_3 li {
     position: absolute;
     z-index: 10;
     visibility: hidden;
-    background: #fff;
+
     padding: 5px;
+
+    /* From https://css.glass */
+    background: rgba(202, 220, 224, 0.72);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.6px);
+    -webkit-backdrop-filter: blur(10.6px);
+    border: 1px solid rgba(202, 220, 224, 0.31);
 }

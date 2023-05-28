@@ -217,17 +217,6 @@ const city_coords = [
     { "name": "vienna", 'position': [16.363449, 48.210033] },
 ]
 
-const TEST_DATA = [
-    { date: "2020-01-01", value: "100" },
-    { date: "2020-01-02", value: "110" },
-    { date: "2020-01-03", value: "120" },
-    { date: "2020-01-04", value: "130" },
-    { date: "2020-01-05", value: "140" },
-    { date: "2020-01-06", value: "150" },
-    { date: "2020-01-07", value: "160" },
-    { date: "2020-01-08", value: "170" },
-]
-
 
 class MapPlot {
     constructor(svg_element_id) {
@@ -332,11 +321,57 @@ class MapPlot {
             let tooltip = d3.select("body")
                 .append("div").attr("id", "mapTooltip");
 
+            const tooltip_width = 400;
+            const tooltip_height = 300;
+            const margin = ({ top: 10, right: 20, bottom: 80, left: 50 });
+
             let tooltip_svg = tooltip
                 .append("svg").attr("id", "mapTooltipSVG")
-                .attr("viewBox", "0 0 200 100")
-                .attr("width", 200)
-                .attr("height", 100);
+                .attr("viewBox", `0 0 ${tooltip_width} ${tooltip_height}`)
+                .attr("width", tooltip_width)
+                .attr("height", tooltip_height);
+
+            // Add X axis --> it is a date format
+            var x = d3.scaleTime()
+                .domain([new Date(2022, 0, 1), new Date(2022, 11, 31)])
+                .range([margin.left, tooltip_width - margin.right]);
+
+
+            let xAxis = d3.axisBottom(x)
+                .ticks(8);
+
+            tooltip_svg.append("g")
+                .attr("transform", `translate(0,${tooltip_height - margin.bottom})`)
+                .call(xAxis)
+                .selectAll("text")  // rotate the labels
+                .style("text-anchor", "end")
+                .style("font-size", "1.3em")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-65)");
+
+            // Add Y axis
+            var y = d3.scaleLinear()
+                .domain([-5, 35])
+                .range([tooltip_height - margin.bottom, margin.top]);
+
+            let yAxis = d3.axisLeft(y);
+
+            tooltip_svg.append("g")
+                .attr("transform", `translate(${margin.left},0)`)
+                .call(yAxis)
+                .selectAll("text")
+                .style("font-size", "1.3em");
+
+            tooltip_svg.append("text")
+                .attr("class", "y label")
+                .attr("text-anchor", "end")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("dx", "-80px")
+                .attr("dy", ".75em")
+                .attr("transform", "rotate(-90)")
+                .text("Temperature [°C]");
 
 
             // Draw the city points
@@ -348,70 +383,72 @@ class MapPlot {
                 .attr("cx", d => projection(d.position)[0])
                 .attr("cy", d => projection(d.position)[1])
                 .attr("r", d => radius_scale(get_sunny_days(d)))
-                .on("mouseover", function (event, d) {
-                    tooltip.style("visibility", "visible");
-
-                    d3.select(this)
-                        .style("stroke", "black")
-                        .style("opacity", 1);
-
-                    // get the data
-                    let city_data = cities_temps_data.filter(item => item.city === d.name)[0];
-                    let data = city_data.days.map((day, i) => {  // map the days to the mean temps
-                        return {
-                            date: day,
-                            value: city_data.mean_temps[i]
-                        }
-                    });
-
-                    // format the data
-                    data = data.map(d => {
-                        return {
-                            date: d3.timeParse("%Y-%m-%d")(d.date),
-                            value: +d.value
-                        }
-                    });
-
-                    const line = d3.line()
-                        .x(d => x(d.date))
-                        .y(d => y(d.value));
-
-                    // Add X axis --> it is a date format
-                    var x = d3.scaleTime()
-                        .domain(d3.extent(data, function (d) { return d.date; }))
-                        .range([0, 200]);
-                    tooltip_svg.append("g")
-                        .attr("transform", "translate(0," + 100 + ")")
-                        .call(d3.axisBottom(x));
-
-                    // Add Y axis
-                    var y = d3.scaleLinear()
-                        .domain(d3.extent(data, function (d) { return +d.value; }))
-                        .range([100, 0]);
-                    tooltip_svg.append("g")
-                        .call(d3.axisLeft(y));
-
-                    tooltip_svg.selectAll("path")
-                        .datum(data)
-                        .join("path")
-                        .attr("fill", "none")
-                        .attr("stroke", "#69b3a2")
-                        .attr("stroke-width", 1.5)
-                        .attr("d", line);
-
-                })
-                .on("mousemove", function (event, d) {
-                    tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
-                })
-                .on("mouseleave", function () {
-                    tooltip.style("visibility", "hidden");
-                    d3.select(this)
-                        .style("stroke", "none")
-                        .style("opacity", 0.8);
-                });
+                .on("mouseover", drawTooltip(cities_temps_data, x, y))
+                .on("mousemove", moveTooltip)
+                .on("mouseleave", hideTooltip);
         });
     }
 }
+
+const moveTooltip = function (event, d) {
+    let tooltip = d3.select("#mapTooltip");
+
+    // for the southern cities, move the tooltip above the cursor
+    if (["lisbon", "athens", "barcelona", "rome"].includes(d.name)) {
+        tooltip.style("top", (event.pageY - 10 - 300) + "px").style("left", (event.pageX + 10) + "px");
+    } else {
+        tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
+    }
+};
+
+const hideTooltip = function () {
+    let tooltip = d3.select("#mapTooltip");
+    tooltip.style("visibility", "hidden");
+    d3.select(this)
+        .style("stroke", "none")
+        .style("opacity", 0.8);
+};
+
+function drawTooltip(cities_temps_data, x, y) {
+    // define closure to access the cities_temps_data and the x and y scales
+    return function (event, d) {
+        let tooltip = d3.select("#mapTooltip");
+        tooltip.style("visibility", "visible");
+
+        d3.select(this)
+            .style("stroke", "black")
+            .style("opacity", 1);
+
+        // get the data
+        let city_data = cities_temps_data.filter(item => item.city === d.name)[0];
+        let data = city_data.days.map((day, i) => {  // map the days to the mean temps
+            return {
+                date: day,
+                value: city_data.mean_temps[i]
+            }
+        });
+
+        // format the data
+        data = data.map(d => {
+            return {
+                date: d3.timeParse("%Y-%m-%d")(d.date),
+                value: +d.value
+            }
+        });
+
+        let tooltip_svg = d3.select("#mapTooltipSVG");
+
+        // draw scatterplot of temperatures
+        tooltip_svg.selectAll("circle")
+            .data(data)
+            .join("circle")
+            .attr("cx", d => x(d.date))
+            .attr("cy", d => y(d.value))
+            .attr("r", 2)
+            .style("fill", "#3250a8");
+    }
+}
+
 
 // Function to capitalize the first letter of a word
 function capitalize(string) {
