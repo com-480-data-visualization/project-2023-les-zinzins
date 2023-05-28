@@ -270,7 +270,7 @@ class MapPlot {
 
             let cities_rain_data = results[1];
             let cities_temps_data = results[2];
-            console.log(cities_temps_data)
+
 
             const get_sunny_days = function (d) {
                 // radius proportional to the number of sunny days
@@ -278,8 +278,10 @@ class MapPlot {
                 return cities_rain_data
                     .find(item => item.city === d.name)
                     .rain_hours
-                    .filter(d => d <= 1.0)
+                    .filter(d => d == 0.0)
                     .length;
+
+
             }
 
             const map_center = d3.geoCentroid(topology);
@@ -291,11 +293,28 @@ class MapPlot {
 
             const radius_scale = d3.scaleSqrt()
                 .domain(d3.extent(city_coords.map(d => get_sunny_days(d)))) // get min and max of sunny days
-                .range([10, 20]);
+                .range([8, 25]);
 
-            // to draw the countries
+            // Draw legend for circles
+            this.svg.append("g")
+                .attr("class", "legendSize")
+                .attr("transform", "translate(10, 390)");
+
+            let legendSize = d3.legendSize()
+                .scale(radius_scale)
+                .shape('circle')
+                .cells(3)
+                .shapePadding(20)
+                .labelOffset(15)
+                .title("Number of sunny days")
+                .labelFormat(d3.format("d"))
+                .orient('vertical');
+
+            this.svg.select(".legendSize")
+                .call(legendSize);
+
+
             const path_generator = d3.geoPath(projection);
-
 
             // Draw the lands
             this.svg.selectAll("path")
@@ -375,7 +394,7 @@ class MapPlot {
 
 
             // Draw the city points
-            this.svg.selectAll("circle")
+            this.svg.selectAll("circle.city")
                 .data(city_coords)
                 .enter()
                 .append("circle")

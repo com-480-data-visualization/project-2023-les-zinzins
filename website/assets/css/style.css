@@ -51,12 +51,15 @@ section h1 {
     margin-bottom: 20px;
 }
 
+section h1 p {
+    font-weight: 400;
+    font-size: 1em;
+}
+
 
 header {
     height: 100vh;
 }
-
-
 
 /* Navbar */
 nav {
@@ -187,7 +190,7 @@ section#section_3 {
     /* Add clearfix to parent element */
 }
 
-section#section_3 p {
+section#section_3 .selection p {
     font-size: 1.25em;
     line-height: 1.5;
     margin-bottom: 10px;
