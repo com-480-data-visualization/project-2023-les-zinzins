@@ -21,7 +21,7 @@ tippy('#section_3>h1>svg', {
     interactive: true,
     allowHTML: true,
     delay: [0, 500],
-    content: '<p>Surface of each Airbnb category is corresponding to the percentage of Airbnbs adapted to a certain group<p><p>Click on a Airbnb category to see the text bigger.</p> <p>Pass your mouse over a Airbnb category to see data details.</p>',
+    content: '<p>Surface of each Airbnb category is corresponding to the percentage of Airbnbs adapted to a certain group.<p><p>Click on a Airbnb category to see the text bigger.</p><p>Pass your mouse over a Airbnb category to see data details.</p>',
     theme: 'light-border',
 });
 

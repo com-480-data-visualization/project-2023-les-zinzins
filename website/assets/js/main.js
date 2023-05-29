@@ -353,7 +353,8 @@ class MapPlot {
             // Add X axis --> it is a date format
             var x = d3.scaleTime()
                 .domain([new Date(2022, 0, 1), new Date(2022, 11, 31)])
-                .range([margin.left, tooltip_width - margin.right]);
+                .range([margin.left, tooltip_width - margin.right])
+                .nice();
 
 
             let xAxis = d3.axisBottom(x)

@@ -183,7 +183,7 @@ nav {
     margin: 0 auto;
 }
 
-/* CSS for the third section */
+/* Section 3: Treemaps */
 section#section_3 {
     padding: 20px;
     overflow: auto;
@@ -206,7 +206,6 @@ section#section_3 li {
     margin-bottom: 5px;
 }
 
-/* Section 3: Treemaps*/
 .selection {
     display: flex;
     align-items: center;
@@ -243,7 +242,6 @@ section#section_3 li {
     /* Adds some space between the radio buttons */
 }
 
-
 .radio-list {
     list-style: none !important;
 }
@@ -253,6 +251,14 @@ section#section_3 li {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: minmax(350px, auto);
 }
+
+@media screen and (max-width: 1440px) {
+    .treemap-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(250px, auto);
+    }
+  }
 
 /* Section 4: Geographic map*/
 #mapTooltip {
