@@ -27,7 +27,7 @@ function drawPlot(timePeriod) {
                 visible: true
             },
             line: {
-                color: 'green',
+                color: 'blue',
             },
             meanline: {
                 visible: true
@@ -36,16 +36,16 @@ function drawPlot(timePeriod) {
                 type: 'groupby',
                 groups: unpack(processedData, 'city'),
                 styles: [
-                    { target: 'Paris', value: { line: { color: 'orange' } } },
-                    { target: 'Amsterdam', value: { line: { color: 'orange' } } },
-                    { target: 'Berlin', value: { line: { color: 'orange' } } },
-                    { target: 'Barcelona', value: { line: { color: 'orange' } } },
-                    { target: 'Budapest', value: { line: { color: 'orange' } } },
-                    { target: 'Lisbon', value: { line: { color: 'orange' } } },
-                    { target: 'Rome', value: { line: { color: 'orange' } } },
-                    { target: 'Vienna', value: { line: { color: 'orange' } } },
-                    { target: 'Athens', value: { line: { color: 'orange' } } },
-                    { target: 'London', value: { line: { color: 'orange' } } }
+                    { target: 'Paris', value: { line: { color: 'DeepSkyBlue' } } },
+                    { target: 'Amsterdam', value: { line: { color: 'IndianRed' } } },
+                    { target: 'Berlin', value: { line: { color: 'DeepSkyBlue' } } },
+                    { target: 'Barcelona', value: { line: { color: 'IndianRed' } } },
+                    { target: 'Budapest', value: { line: { color: 'IndianRed' } } },
+                    { target: 'Lisbon', value: { line: { color: 'DeepSkyBlue' } } },
+                    { target: 'Rome', value: { line: { color: 'IndianRed' } } },
+                    { target: 'Vienna', value: { line: { color: 'DeepSkyBlue' } } },
+                    { target: 'Athens', value: { line: { color: 'DeepSkyBlue' } } },
+                    { target: 'London', value: { line: { color: 'IndianRed' } } }
                 ]
             }]
         }]
@@ -70,8 +70,17 @@ function drawPlot(timePeriod) {
     });
 }
 
+// Call the function at the beginning to draw the initial plot
+drawPlot('weekdays');
 
-
+// Add an event listener to the checkbox
+document.getElementById('timeToggle').addEventListener('change', function() {
+    if (this.checked) {
+        drawPlot('weekends');
+    } else {
+        drawPlot('weekdays');
+    }
+});
 
 // Radar chart /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,11 +98,11 @@ d3.csv("../all_data.csv").then(data => {
         labels: labels,
         datasets: [{
             label: "Distance to the center [km]",
-            backgroundColor: "rgba(200,0,0,0.2)",
+            backgroundColor: "rgba(0,191,255,0.3)",
             data: distData
         }, {
             label: "Distance to the metro [km]",
-            backgroundColor: "rgba(0,0,200,0.2)",
+            backgroundColor: "rgba(205,92,92,0.8)",
             data: metroDistData
         }]
     };
@@ -495,7 +504,6 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    drawPlot('weekdays');
     generateTreemaps(['Vienna', 'Rome', 'Budapest']);
     map_plot_object = new MapPlot('map-plot');
 });
