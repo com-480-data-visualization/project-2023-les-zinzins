@@ -123,43 +123,47 @@ d3.csv("../all_data.csv").then(data => {
 
 // Function to load CSV data
 function loadCSVData(url, callback) {
+    // Using Papa.parse library to parse the CSV data from the provided URL
     Papa.parse(url, {
         download: true,
-        header: true,
+        header: true, // Assuming the CSV file has a header row
         complete: function (results) {
+            // Invoke the callback function with the parsed data
             callback(results.data);
         }
     });
 }
 
+// Function to generate treemaps based on the cities provided
 function generateTreemaps(cities) {
+    // Load the CSV data from 'data/tree_map.csv' using the loadCSVData function
     loadCSVData('data/tree_map.csv', function (data) {
+        // Iterate over each city in the 'cities' array
         cities.forEach(function (city, index) {
+            // Filter the CSV data to obtain the data specific to the current city
             var cityData = data.filter(item => item.city === city.toLowerCase());
 
+            // Define the treemap data object
             var treemapData = [{
                 type: 'treemap',
+                // Set the labels for each treemap category using the 'person_capacity' property from the cityData
                 labels: cityData.map(item => `${item.person_capacity} Airbnbs`),
+                // Set the parent categories for each treemap category as the current city name with the string ' Airbnbs'
                 parents: cityData.map(() => `${city} Airbnbs`),
+                // Set the values/sizes of each treemap category using the 'count' property from the cityData
                 values: cityData.map(item => parseFloat(item.count)),
+                // Configure the text to be displayed on each treemap category
                 textinfo: 'label+value+percent root',
+                // Configure the tooltip template for each treemap category
                 hovertemplate: '%{label}<br>%{value} Airbnbs<br>%{percentRoot:.2%} of the Airbnbs<extra></extra>',
+                // Configure the marker colors for each treemap category based on the 'person_capacity' property
                 marker: {
                     colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
                         item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
-                },
-                marker: {
-                    colors: cityData.map(item => item.person_capacity === 'Family' ? '#1f77b4' :
-                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
-                },
-                marker: {
-                    colors: cityData.map(item => item.person_capacity === 'Group' ? '#1f77b4' :
-                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
                 }
-
             }];
 
-
+            // Define the layout options for the treemap
             var layout = {
                 margin: {
                     l: 0,
@@ -171,23 +175,29 @@ function generateTreemaps(cities) {
                 autosize: true
             };
 
+            // Create and render the treemap using Plotly.newPlot
             Plotly.newPlot(`treemap-${index + 1}`, treemapData, layout);
         });
     });
 }
 
+// Function to clear the existing treemaps
 function clearTreemaps() {
+    // Iterate over the array of treemap IDs and perform the following operations for each ID
     ['treemap-1', 'treemap-2', 'treemap-3', 'treemap-4', 'treemap-5'].forEach(function (id) {
+        // Purge the treemap using Plotly.purge to remove the existing plot
         Plotly.purge(id);
+        // Reset the CSS class of the treemap container to remove any additional styling
         document.getElementById(id).className = '';
     });
 }
 
-
-
+// Add event listener to the radio buttons with name 'category'
 document.getElementsByName('category').forEach(function (radio) {
     radio.addEventListener('change', function () {
+        // Clear the existing treemaps using the clearTreemaps function
         clearTreemaps();
+        // Generate new treemaps based on the selected category value
         if (this.value === 'Group') {
             generateTreemaps(['Athens', 'Lisbon']);
         } else if (this.value === 'Family') {
@@ -197,8 +207,6 @@ document.getElementsByName('category').forEach(function (radio) {
         }
     });
 });
-
-
 
 
 // geographic map /////////////////////////////////////////////////////////////////////////////////////////
