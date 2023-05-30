@@ -51,7 +51,7 @@ function drawPlot(timePeriod) {
         }]
 
         var layout = {
-            title: "Multiple Traces Violin Plot",
+            title: `Multiple Traces Violin Plot - ${timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}`,
             yaxis: {
                 zeroline: false,
                 range: [0, 1000]
