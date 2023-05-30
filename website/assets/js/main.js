@@ -54,14 +54,14 @@ function drawPlot(timePeriod) {
             title: `Multiple Traces Violin Plot - ${timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}`,
             yaxis: {
                 zeroline: false,
-                range: [0, 1000],
+                range: [0, 800],
                 title: {
                     text: 'Price in Euros',
                 }
             },
             autosize: false,
-            width: 800,
-            height: 400,
+            width: 1000,
+            height: 600,
             showlegend: false
         }
         
