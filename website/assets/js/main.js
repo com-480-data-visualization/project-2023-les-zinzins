@@ -4,7 +4,7 @@
 function drawPlot(timePeriod) {
     d3.csv("../all_data.csv").then(function (data) {
         let processedData = data
-            .filter(d => +d.realSum <= 1000 && d.time === timePeriod)
+            .filter(d => +d.realSum <= 4000 && d.time === timePeriod)
             .map(function (d) {
                 return {
                     realSum: +d.realSum,  // '+' is used to convert string to number
@@ -60,8 +60,8 @@ function drawPlot(timePeriod) {
                 }
             },
             autosize: false,
-            width: 1000,
-            height: 600,
+            width: 1500,
+            height: 1000,
             showlegend: false
         }
         
