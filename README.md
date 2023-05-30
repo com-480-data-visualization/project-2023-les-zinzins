@@ -79,7 +79,74 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 
 ## Milestone 3 (2nd June, 5pm)
 
-**80% of the final grade**
+**See pdf called [???]**
+
+### Usage
+
+#### Webpage  structure
+
+#### Prices overview
+
+#### Location overview
+
+#### Capacity of the Airbnb
+
+- Select a traveler category by using one of the radio buttons: Family (3-5 persons), Couple (2 persons), or Group (6 persons)
+- The treemaps will be updated based on the selected category, displaying the best destinations in each category.
+- Treemaps display the number of Airbnbs and the percentage of total Airbnbs in each capacity category
+- Hover over a treemap category to view detailed information about the number of Airbnbs and the percentage of total Airbnbs.
+- Click on a treemap category to see informations about this category bigger
+
+#### Weather
+
+### Dependencies
+
+#### Webpage  structure
+
+#### Prices overview
+
+#### Location overview
+
+#### Capacity of the Airbnb
+
+- [Papa Parse](https://www.papaparse.com/) - A powerful CSV parsing library for JavaScript
+- [Plotly.js](https://plotly.com/javascript/) - A JavaScript graphing library
+
+#### Weather
+
+### Installation
+
+1. Clone the repository or download the source code.
+2. Make sure you have the latest version of a modern web browser installed (Chrome, Firefox, Safari, etc.).
+3. Open the `index.html` file in a web browser.
+
+### Code Explanation
+
+#### Webpage  structure
+
+#### Prices overview
+
+#### Location overview
+
+#### Capacity of the Airbnb
+
+The page uses the following main files:
+
+- `index.html`: Includes the treemaps section, radio buttons for selecting the traveler category, and the necessary JavaScript and CSS files.
+
+- `main.js`: This file contains the JavaScript code responsible for loading the CSV data, generating the treemaps, and handling the event listeners for the radio buttons. It uses the Papa Parse library to parse the CSV data and Plotly.js library to create the treemaps.
+
+- `style.css`: This file contains the CSS styles for the web page, including the layout, positioning, and styling of the treemaps, radio buttons, and other elements.
+
+The `generateTreemaps` function in `main.js` takes a list of cities as input. It loads CSV data from a file and filters it to obtain data specific to each city. It creates a treemap structure for each city using the filtered data, including labels, parents, values, and tooltips. It configures the appearance of the treemap markers based on the capacity type. The function also sets the layout options for the treemap. Finally, it renders the treemaps on the web page using the Plotly library. This process is repeated for each city in the provided list, generating multiple treemaps dynamically.
+
+The `clearTreemaps` in `main.js` function is responsible for clearing the generated treemaps from the webpage. It iterates over an array of treemap IDs and performs the following actions for each ID:
+    It removes the Plotly instance associated with the treemap, effectively clearing the treemap.
+    It resets the CSS class of the treemap element, removing any applied styling.
+
+Then the rest of the code in `main.js` adds event listeners to a group of radio buttons with the name "category". When a radio button's value changes, the event listener triggers a function that clears any existing treemaps and generates new treemaps based on the selected category. The specific cities for each category are predefined, and the generateTreemaps function is called with the appropriate cities based on the selected value.
+
+#### Weather
 
 
 ## Late policy

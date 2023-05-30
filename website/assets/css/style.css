@@ -248,8 +248,7 @@ nav {
 /* Section 3: Treemaps */
 section#section_3 {
     padding: 20px;
-    overflow: auto;
-    /* Add clearfix to parent element */
+    /* overflow: auto;  Commented out, decide if needed */
 }
 
 section#section_3 .selection p {
@@ -275,7 +274,6 @@ section#section_3 li {
 
 .selection p em {
     line-height: 1;
-    /* Adjust this value if needed */
 }
 
 .selection p,
@@ -293,7 +291,6 @@ section#section_3 li {
     list-style: none;
     padding: 0;
     font-size: 14px;
-    /* Change this value to change the text size */
     display: flex;
     align-items: center;
 }
@@ -301,11 +298,6 @@ section#section_3 li {
 .radio-list li {
     display: inline-block;
     margin-right: 10px;
-    /* Adds some space between the radio buttons */
-}
-
-.radio-list {
-    list-style: none !important;
 }
 
 .treemap-container {
@@ -316,11 +308,9 @@ section#section_3 li {
 
 @media screen and (max-width: 1440px) {
     .treemap-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
         grid-auto-rows: minmax(250px, auto);
     }
-  }
+}
 
 /* Section 4: Geographic map*/
 #mapTooltip {
@@ -338,4 +328,3 @@ section#section_3 li {
     -webkit-backdrop-filter: blur(10.6px);
     border: 1px solid rgba(202, 220, 224, 0.31);
 }
-
