@@ -3,7 +3,7 @@ tippy('#section_1>h1>svg', {
     interactive: true,
     allowHTML: true,
     delay: [0, 500],
-    content: '<p>Add explanation here.</p>',
+    content: '<p> A violin plot presents the price distribution for each city. Hovering over the plot reveals individual data points along with key statistical indicators, including the mean, median, and quartiles. The width of the violin shape at a given price point signifies the number of Airbnb listings available at that price. All prices are quoted in Euros, and represent the cost for one night\'s accommodation.</p>',
     theme: 'light-border',
 });
 
@@ -12,7 +12,7 @@ tippy('#section_2>h1>svg', {
     interactive: true,
     allowHTML: true,
     delay: [0, 500],
-    content: '<p>Add explanation here.</p>',
+    content: '<p>The radar chart depicts the proximity of your accommodation to the historical district of your chosen city. The displayed values represent averages for all Airbnb listings. As per Airbnb\'s standards, the city center\'s location is determined through collaboration with local residents and geographical analysis. This ensures that your stay connects you closely to the historic heart of your destination city.</p>',
     theme: 'light-border',
 });
 
