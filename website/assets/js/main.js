@@ -54,13 +54,17 @@ function drawPlot(timePeriod) {
             title: `Multiple Traces Violin Plot - ${timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}`,
             yaxis: {
                 zeroline: false,
-                range: [0, 1000]
+                range: [0, 1000],
+                title: {
+                    text: 'Price in Euros',
+                }
             },
             autosize: false,
             width: 800,
             height: 400,
             showlegend: false
         }
+        
 
 
         Plotly.newPlot('violinChartDiv', data, layout);
