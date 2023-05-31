@@ -60,8 +60,8 @@ function drawPlot(timePeriod) {
                 }
             },
             autosize: false,
-            width: 1400,
-            height: 700,
+            width: 1050,
+            height: 450,
             showlegend: false
         }
         
@@ -511,4 +511,14 @@ whenDocumentLoaded(() => {
     generateTreemaps(['Vienna', 'Rome', 'Budapest']);
     map_plot_object = new MapPlot('map-plot');
 });
+
+// door opening
+window.onload = function() {
+    document.querySelector("#startButton").addEventListener("click", function() {
+        let audio = document.getElementById("door");
+        audio.play();
+    });
+}
+
+
 
