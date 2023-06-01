@@ -2,6 +2,7 @@
 :root {
     /* TODO: choose font */
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #323333;
 }
 
 /* Remove scrollbars */
@@ -77,12 +78,12 @@ nav {
 .continue-button {
     align-items: center;
     appearance: none;
-    background-color: #FCFCFD;
+    background-color: #A3E1DD;
     border-radius: 10px;
     border-width: 0;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-shadow: rgba(163, 225, 221, 0.4) 0 2px 4px, rgba(163, 225, 221, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
     box-sizing: border-box;
-    color: #1a2e34;
+    color: #323333;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -106,20 +107,20 @@ nav {
     touch-action: manipulation;
     white-space: nowrap;
     will-change: box-shadow, transform;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .continue-button:focus {
-    box-shadow: #cacbb0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #cacbb0 0 -3px 0 inset;
+    box-shadow: #27444C 0 0 0 1.5px inset, rgba(163, 225, 221, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #27444C 0 -3px 0 inset;
 }
 
 .continue-button:hover {
-    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #cacbb0 0 -3px 0 inset;
+    box-shadow: rgba(163, 225, 221, 0.4) 0 4px 8px, rgba(163, 225, 221, 0.3) 0 7px 13px -3px, lightgrey 0 -3px 0 inset;
     transform: translateY(-2px);
 }
 
 .continue-button:active {
-    box-shadow: #cacbb0 0 3px 7px inset;
+    box-shadow: #27444C 0 3px 7px inset;
     transform: translateY(2px);
 }
 
@@ -138,7 +139,7 @@ nav {
 }
 
 .room text {
-    fill: #F0F0F0;
+    fill: #EEF2F4;
     fill-opacity: 0%;
     font-weight: bold;
 
@@ -167,6 +168,12 @@ nav {
     transform: translateZ(0);
 
     filter: url(#solid_active);
+}
+
+/* Section presentation */
+
+#section_presentation p {
+    font-size: 22px;
 }
 
 /* Section 1: Violin chart */
@@ -199,7 +206,7 @@ nav {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #0919f7;
+    background-color: #61a3b6;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -217,11 +224,11 @@ nav {
 }
 
 input:checked+.slider {
-    background-color: #f321e9;
+    background-color: #ea4141;
 }
 
 input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px lightgrey;
 }
 
 input:checked+.slider:before {

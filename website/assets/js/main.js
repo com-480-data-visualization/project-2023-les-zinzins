@@ -36,22 +36,22 @@ function drawPlot(timePeriod) {
                 type: 'groupby',
                 groups: unpack(processedData, 'city'),
                 styles: [
-                    { target: 'Paris', value: { line: { color: 'DeepSkyBlue' } } },
-                    { target: 'Amsterdam', value: { line: { color: 'IndianRed' } } },
-                    { target: 'Berlin', value: { line: { color: 'DeepSkyBlue' } } },
-                    { target: 'Barcelona', value: { line: { color: 'IndianRed' } } },
-                    { target: 'Budapest', value: { line: { color: 'IndianRed' } } },
-                    { target: 'Lisbon', value: { line: { color: 'DeepSkyBlue' } } },
-                    { target: 'Rome', value: { line: { color: 'IndianRed' } } },
-                    { target: 'Vienna', value: { line: { color: 'DeepSkyBlue' } } },
-                    { target: 'Athens', value: { line: { color: 'DeepSkyBlue' } } },
-                    { target: 'London', value: { line: { color: 'IndianRed' } } }
+                    { target: 'Paris', value: { line: { color: '#A3E1DD' } } },
+                    { target: 'Amsterdam', value: { line: { color: '#BF4342' } } },
+                    { target: 'Berlin', value: { line: { color: '#A3E1DD' } } },
+                    { target: 'Barcelona', value: { line: { color: '#BF4342' } } },
+                    { target: 'Budapest', value: { line: { color: '#BF4342' } } },
+                    { target: 'Lisbon', value: { line: { color: '#A3E1DD' } } },
+                    { target: 'Rome', value: { line: { color: '#BF4342' } } },
+                    { target: 'Vienna', value: { line: { color: '#A3E1DD' } } },
+                    { target: 'Athens', value: { line: { color: '#A3E1DD' } } },
+                    { target: 'London', value: { line: { color: '#BF4342' } } }
                 ]
             }]
         }]
 
         var layout = {
-            title: `Multiple Traces Violin Plot - ${timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}`,
+            title: `Distribution of prices on ${timePeriod.charAt(0).toUpperCase() + timePeriod.slice(1)}`,
             yaxis: {
                 zeroline: false,
                 range: [0, 800],
@@ -64,7 +64,7 @@ function drawPlot(timePeriod) {
             height: 450,
             showlegend: false
         }
-        
+
 
 
         Plotly.newPlot('violinChartDiv', data, layout);
@@ -78,7 +78,7 @@ function drawPlot(timePeriod) {
 drawPlot('weekdays');
 
 // Add an event listener to the checkbox
-document.getElementById('timeToggle').addEventListener('change', function() {
+document.getElementById('timeToggle').addEventListener('change', function () {
     if (this.checked) {
         drawPlot('weekends');
     } else {
@@ -100,15 +100,16 @@ d3.csv("../all_data.csv").then(data => {
 
     var marksData = {
         labels: labels,
-        datasets: [{
-            label: "Distance to the center [km]",
-            backgroundColor: "rgba(0,191,255,0.3)",
-            data: distData
-        }, {
-            label: "Distance to the metro [km]",
-            backgroundColor: "rgba(205,92,92,0.8)",
-            data: metroDistData
-        }]
+        datasets: [
+            {
+                label: "Distance to the metro [km]",
+                backgroundColor: "rgba(191, 67, 66, 0.7)",
+                data: metroDistData
+            }, {
+                label: "Distance to the center [km]",
+                backgroundColor: "rgba(163, 225, 221, 0.7)",
+                data: distData
+            }]
     };
 
     Chart.defaults.font.size = 16;
@@ -116,6 +117,11 @@ d3.csv("../all_data.csv").then(data => {
         type: 'radar',
         data: marksData,
         options: {
+            elements: {
+                point: {
+                    pointRadius: 5,
+                }
+            },
             scales: {
                 r: {
                     pointLabels: {
@@ -171,8 +177,8 @@ function generateTreemaps(cities) {
                 hovertemplate: '%{label}<br>%{value} Airbnbs<br>%{percentRoot:.2%} of the Airbnbs<extra></extra>',
                 // Configure the marker colors for each treemap category based on the 'person_capacity' property
                 marker: {
-                    colors: cityData.map(item => item.person_capacity === 'Couple' ? '#1f77b4' :
-                        item.person_capacity === 'Family' ? '#ff7f0e' : '#2ca02c')
+                    colors: cityData.map(item => item.person_capacity === 'Couple' ? '#BF4342' :
+                        item.person_capacity === 'Family' ? '#A3E1DD' : '#27444C')
                 }
             }];
 
@@ -513,8 +519,8 @@ whenDocumentLoaded(() => {
 });
 
 // door opening
-window.onload = function() {
-    document.querySelector("#startButton").addEventListener("click", function() {
+window.onload = function () {
+    document.querySelector("#startButton").addEventListener("click", function () {
         let audio = document.getElementById("door");
         audio.play();
     });
