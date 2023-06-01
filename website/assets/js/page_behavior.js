@@ -34,15 +34,16 @@ function scrollHandler() {
         - To know which link needs an active class, we use sectionId variable we are getting
         while looping through sections as an selector
         */
-        if (
-            scrollY > sectionTop &&
-            scrollY <= sectionTop + sectionHeight
-        ) {
-            document.querySelector("#" + sectionId + "_room").classList.add("active");
-        } else {
-            document.querySelector("#" + sectionId + "_room").classList.remove("active");
+
+        if (sectionId != "section_presentation") {
+            if (
+                scrollY > sectionTop &&
+                scrollY <= sectionTop + sectionHeight
+            ) {
+                document.querySelector("#" + sectionId + "_room").classList.add("active");
+            } else {
+                document.querySelector("#" + sectionId + "_room").classList.remove("active");
+            }
         }
     });
 }
-
-document.querySelector("#startButton").oncli
