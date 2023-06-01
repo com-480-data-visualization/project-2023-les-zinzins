@@ -38,17 +38,9 @@ function scrollHandler() {
             scrollY > sectionTop &&
             scrollY <= sectionTop + sectionHeight
         ) {
-            if (sectionId == "section_presentation") {
-                document.querySelector("#startButton").classList.remove("hidden");
-            } else {
-                document.querySelector("#" + sectionId + "_room").classList.add("active");
-            }
+            document.querySelector("#" + sectionId + "_room").classList.add("active");
         } else {
-            if (sectionId == "section_presentation") {
-                document.querySelector("#startButton").classList.add("hidden");
-            } else {
-                document.querySelector("#" + sectionId + "_room").classList.remove("active");
-            }
+            document.querySelector("#" + sectionId + "_room").classList.remove("active");
         }
     });
 }
