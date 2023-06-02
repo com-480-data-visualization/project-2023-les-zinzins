@@ -85,6 +85,13 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 
 #### Webpage  structure
 
+Our visualization has 1 presentation part, and 4 visualization stages. You can navigate these different stages in three simple ways:
+1. Use the house on the left as a navigation bar. You can see the categories by hovering over the different rooms, and go to them by clicking.
+2. Use the floating arrow buttons on the bottom right of the screen to go to the next section.
+3. Or simply scroll up or down !
+
+For each category there is a (?) sign next to the title of the section to indicate how to use the current visualization.
+
 #### Prices overview
 
 #### Location overview
@@ -99,9 +106,13 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 
 #### Weather
 
+You can see the number of sunny days in 2022 over the whole year with the surface of the yellow circles. If you hover your mouse over the city circles, a tooltip will appear, showing the average temperature over the year of 2022.
+
 ### Dependencies
 
 #### Webpage  structure
+
+- [Tippy](https://atomiks.github.io/tippyjs/) - A simple tooltip library
 
 #### Prices overview
 
@@ -114,6 +125,8 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 
 #### Weather
 
+- [D3.js](https://d3js.org/) - Data Driven Documents
+
 ### Installation
 
 1. Clone the repository or download the source code.
@@ -123,6 +136,8 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 ### Code Explanation
 
 #### Webpage  structure
+
+
 
 #### Prices overview
 
