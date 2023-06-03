@@ -1,4 +1,4 @@
-tippy('#section_1>h1>svg', {
+tippy('#section_1 h1>svg', {
     placement: 'bottom',
     interactive: true,
     allowHTML: true,
@@ -7,7 +7,7 @@ tippy('#section_1>h1>svg', {
     theme: 'light-border',
 });
 
-tippy('#section_2>h1>svg', {
+tippy('#section_2 h1>svg', {
     placement: 'bottom',
     interactive: true,
     allowHTML: true,
@@ -16,7 +16,7 @@ tippy('#section_2>h1>svg', {
     theme: 'light-border',
 });
 
-tippy('#section_3>h1>svg', {
+tippy('#section_3 h1>svg', {
     placement: 'bottom',
     interactive: true,
     allowHTML: true,
@@ -25,7 +25,7 @@ tippy('#section_3>h1>svg', {
     theme: 'light-border',
 });
 
-tippy('#section_4>h1>svg', {
+tippy('#section_4 h1>svg', {
     placement: 'bottom',
     interactive: true,
     allowHTML: true,

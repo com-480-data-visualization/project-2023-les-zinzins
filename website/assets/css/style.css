@@ -170,11 +170,6 @@ nav {
     filter: url(#solid_active);
 }
 
-/* Section presentation */
-
-#section_presentation p {
-    font-size: 22px;
-}
 
 /* Section 1: Violin chart */
 #violinChartDiv {
