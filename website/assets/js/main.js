@@ -386,7 +386,6 @@ class MapPlot {
 
             let xAxis = d3.axisBottom(x)
                 .ticks(8);
-
             tooltip_svg.append("g")
                 .attr("transform", `translate(0,${tooltip_height - margin.bottom})`)
                 .call(xAxis)
@@ -403,13 +402,13 @@ class MapPlot {
                 .range([tooltip_height - margin.bottom, margin.top]);
 
             let yAxis = d3.axisLeft(y);
-
             tooltip_svg.append("g")
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis)
                 .selectAll("text")
                 .style("font-size", "1.3em");
 
+            // Add Y axis label:
             tooltip_svg.append("text")
                 .attr("class", "y label")
                 .attr("text-anchor", "end")
@@ -419,7 +418,6 @@ class MapPlot {
                 .attr("dy", ".75em")
                 .attr("transform", "rotate(-90)")
                 .text("Temperature [°C]");
-
 
             // Draw the city points
             this.svg.selectAll("circle.city")
