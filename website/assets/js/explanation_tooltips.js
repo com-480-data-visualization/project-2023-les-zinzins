@@ -12,7 +12,7 @@ tippy('#section_2>h1>svg', {
     interactive: true,
     allowHTML: true,
     delay: [0, 500],
-    content: '<p>The radar chart depicts the proximity of your accommodation to the <strong>historical district</strong> of your chosen city. The displayed values represent <strong>averages</strong> for all Airbnb listings.</p><p>As per <strong>Airbnb\'s standards</strong>, the city center\'s location is determined through collaboration with local residents and geographical analysis. This ensures that your stay connects you closely to the historic heart of your destination city.</p>',
+    content: '<p>The radar chart depicts the proximity of your accommodation to the <strong>historical district</strong> of your chosen city. The displayed values represent <strong>averages</strong> for all Airbnb listings.</p><p>As per <strong>Airbnb\'s standards</strong>, the city center\'s location is determined through collaboration with local residents and geographical analysis. This ensures that your stay connects you closely to the historic heart of your destination city. Note that you can select only one of the two options if necessary, by clicking on the legend. </p>',
     theme: 'light-border',
 });
 
