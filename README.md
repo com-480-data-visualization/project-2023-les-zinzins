@@ -80,6 +80,7 @@ We don’t have a lot of sources of inspiration. However we could cite the examp
 ## Milestone 3 (2nd June, 5pm)
 
 **See pdf called [???]**
+**See presentation video called [Airbnb explorer tool](./Airbnb_explorer_tool.mp4)**
 
 ### Usage
 
@@ -94,7 +95,16 @@ For each category there is a (?) sign next to the title of the section to indica
 
 #### Prices overview
 
+- Observe the slight changes in the violin shapes when switching between the weekend and weekday views
+- You can explore the visualization using several options. Hovering over a violin shape displays comprehensive statistical insights associated with that city
+- Double-clicking adjusts the zoom level from default to a view that accommodates all data
+- Try selecting a horizontal range to focus on a specific city
+- Selecting a vertical range can enhance the visibility of the violin shapes for all cities around a chosen price value
+
 #### Location overview
+
+- Hovering over a point reveals its exact value
+- Try deselecting one of the two options to view either both distance metrics superimposed or just the distance to the metro more clearly
 
 #### Capacity of the Airbnb
 
