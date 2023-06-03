@@ -520,11 +520,11 @@ whenDocumentLoaded(() => {
 
 // door opening
 window.onload = function () {
-    document.querySelector("#startButton").addEventListener("click", function () {
+    document.querySelector(".continue-button").addEventListener("click", function () {
         let audio = document.getElementById("door");
         audio.play();
     });
 }
-
+ 
 
 

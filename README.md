@@ -126,6 +126,8 @@ You can see the number of sunny days in 2022 over the whole year with the surfac
 #### Weather
 
 - [D3.js](https://d3js.org/) - Data Driven Documents
+- [TopoJSON](https://github.com/topojson/topojson) -  Extension of GeoJSON that encodes topology
+- [d3-legend](https://d3-legend.susielu.com/) - A tool to help make legend for d3 scales
 
 ### Installation
 
@@ -136,8 +138,11 @@ You can see the number of sunny days in 2022 over the whole year with the surfac
 ### Code Explanation
 
 #### Webpage  structure
+A lot of effort has been put in having a nice navigation experience with the house and each room lighting up whenever you are in the corresponding section.
 
+This effect has been made possible with the use of SVG and polygons drawn around each room of the house image. The script in `page_behavior.js` helps to update the navbar to match the current scroll position of the user. 
 
+The scroll has been set to snap to each section so we have a nice separatioon and an overall nicer feel.
 
 #### Prices overview
 
@@ -163,9 +168,9 @@ Then the rest of the code in `main.js` adds event listeners to a group of radio 
 
 #### Weather
 
+For the weather map, D3.js was used extensively. We used a scale sqrt for the radius as we want the area (not the radius) to be proportionnal to the number of sunny days.
 
-## Late policy
+The tooltip is created with a high z-index to be placed on top when it is showed. It is always hidden except when the user passes it's mouse on a city ring. When this happens, we handle the drawing of the tooltip using callbacks of mouse events.
 
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
+We get the data from the prepared dataset of the 2022 meteo archives and display a scatterplot.
 
